@@ -1,21 +1,21 @@
 <template>
-    <div class="badge"  v-show="this.text >= 1">
-      <div class="badge-content">  
-          {{this.text}}
-      </div>
+  <div class="badge"  v-show="this.text >= 1">
+    <div class="badge-content">  
+      {{this.text}}
     </div>
+  </div>
 </template>
 
 <script>
 import store from "@/store";
 export default {
-       computed:{
-           text(){
-               return store.state.user.newmessagen
-           }
-       },
-       methods:{
-       }
+  computed:{
+    text(){
+      return store.state.user.newmessagen
+    }
+  },
+  methods:{
+  }
 }
 </script>
 

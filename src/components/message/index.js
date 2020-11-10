@@ -16,7 +16,6 @@ const messagety = {
       instance.state = state
       instance.message = msg
       instance.visible = true
-
       setTimeout(() => {
         instance.visible = false
       }, duration)

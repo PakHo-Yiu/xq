@@ -23,13 +23,12 @@
         <use :xlink:href=iconW></use>
       </svg>我的
     </router-link>
-
 	</div>
 </template>
 <script type="text/ecmascript-6">
 import  Badge  from "components/badge.vue";
   export default {
-    computed:{
+    computed: {
       iconT(){
         return this.$route.path.indexOf("/recommend")!=-1 ? '#icontuijian' : '#icontuijian2'
       },
@@ -43,7 +42,7 @@ import  Badge  from "components/badge.vue";
         return this.$route.path=="/center" ? '#iconwode' : '#iconwode2'
       }
     },
-    components:{
+    components: {
       Badge
     }
   }
@@ -57,7 +56,6 @@ import  Badge  from "components/badge.vue";
     display: flex;
     align-items: center;
     font-size:0.1rem;
-
     color:rgba(137,137,137,1);
     border-top: 0.01rem solid rgba(236,236,236,1);
     background-color: #FBFBFB;
@@ -80,6 +78,4 @@ import  Badge  from "components/badge.vue";
         color: #FF7263;
     }
   }
-
-
 </style>

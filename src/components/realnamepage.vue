@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="content-bottom-bottom">
-          <div class="content-bottom-bottoms">提交</div></div>
+        <div class="content-bottom-bottoms">提交</div></div>
     </div>
   </div>
 </template>
@@ -47,7 +47,6 @@ export default {
       information: {}
     };
   },
-
   methods: {
   },
   components: {
@@ -58,105 +57,99 @@ export default {
 
 <style scoped rel="stylesheet/scss" lang="scss">
 .realnamepage{
-   position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 998;
-    background: #F7F4FB;
-    margin-top: 0.5rem;
-.content-middle {
-  font-size: 0.17rem;
-  margin-left: 0;
-  margin-right: 0;
-  background: rgba(255, 255, 255, 1);
-  .content-middle-top {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 1.3rem;
-
-    .icon {
-      width: 0.8rem;
-      height: 0.8rem;
-      overflow: hidden;
-    }
-  }
-  .content-middle-bottom {
-    width: 3.75rem;
-    height: 0.37rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(239, 236, 251, 0.8);
-    .span_text {
-      width: 2.74rem;
-      height: 0.12rem;
-      font-family: PingFang-SC-Medium;
-      font-size: 0.16rem;
-      font-weight: normal;
-      font-stretch: normal;
-      line-height: 0.15rem;
-      letter-spacing: 0rem;
-      color: #8e8e8e;
-    }
-  }
-  .content-bottom-top {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: 1.3rem;
-     background: #F7F4FB;
-    .item-a {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 998;
+  background: #F7F4FB;
+  margin-top: 0.5rem;
+  .content-middle {
+    font-size: 0.17rem;
+    margin-left: 0;
+    margin-right: 0;
+    background: rgba(255, 255, 255, 1);
+    .content-middle-top {
       display: flex;
       align-items: center;
-
-      width: 3.75rem;
-      height: 0.45rem;
-      background-color: #ffffff;
-      margin-bottom: 0.01rem;
-      .item-span {
-        flex: 0 0 1.2rem;
-        line-height: 0.45rem;
-        height: 0.45rem;
-        text-align: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 1.3rem;
+      .icon {
+        width: 0.8rem;
+        height: 0.8rem;
+        overflow: hidden;
       }
-      .item-input {
-        padding: 0 0.1rem;
-        font-size: 0.15rem;
-
-        height: 0.3rem;
-        outline: none;
-        border: none;
-
-        &::placeholder {
-          font-size: 0.16rem;
-          color: #8e8e8e;
+    }
+    .content-middle-bottom {
+      width: 3.75rem;
+      height: 0.37rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(239, 236, 251, 0.8);
+      .span_text {
+        width: 2.74rem;
+        height: 0.12rem;
+        font-family: PingFang-SC-Medium;
+        font-size: 0.16rem;
+        font-weight: normal;
+        font-stretch: normal;
+        line-height: 0.15rem;
+        letter-spacing: 0rem;
+        color: #8e8e8e;
+      }
+    }
+    .content-bottom-top {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      height: 1.3rem;
+      background: #F7F4FB;
+      .item-a {
+        display: flex;
+        align-items: center;
+        width: 3.75rem;
+        height: 0.45rem;
+        background-color: #ffffff;
+        margin-bottom: 0.01rem;
+        .item-span {
+          flex: 0 0 1.2rem;
+          line-height: 0.45rem;
+          height: 0.45rem;
+          text-align: center;
+        }
+        .item-input {
+          padding: 0 0.1rem;
+          font-size: 0.15rem;
+          height: 0.3rem;
+          outline: none;
+          border: none;
+          &::placeholder {
+            font-size: 0.16rem;
+            color: #8e8e8e;
+          }
         }
       }
     }
-  }
-
     .content-bottom-bottom{
-        background: #F7F4FB;
-          .content-bottom-bottoms{
+      background: #F7F4FB;
+      .content-bottom-bottoms{
         margin: 0 auto;
         display: flex;
         align-items: center;
-        justify-content: center;
-    width: 3.04rem;
-    height: 0.41rem;
-    background-image: linear-gradient(90deg, #6977ff 0%, #a879ff 100%),
-      linear-gradient(83deg, #fe5004 0%, #e33304 50%, #c71604 100%);
-    background-blend-mode: normal, normal;
-    border-radius: 0.2rem;
-    font-size: 0.16rem;
-    color: #ffffff;
-          }
+          ustify-content: center;
+        width: 3.04rem;
+        height: 0.41rem;
+        background-image: linear-gradient(90deg, #6977ff 0%, #a879ff 100%),
+        linear-gradient(83deg, #fe5004 0%, #e33304 50%, #c71604 100%);
+        background-blend-mode: normal, normal;
+        border-radius: 0.2rem;
+        font-size: 0.16rem;
+        color: #ffffff;
+      }
+    }
   }
-
-}
 }
 </style>

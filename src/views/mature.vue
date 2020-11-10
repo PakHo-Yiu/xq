@@ -1,27 +1,25 @@
 <template>
-  
-    <div class="content" >
+  <div class="content" >
    <null-result  ></null-result>
-    </div>
-
+  </div>
 </template>
 
 <script>
 import NullResult from 'components/null_result'
 export default {
-    components:{
-        NullResult
-    }
+  components:{
+    NullResult
+  }
 }
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
 .content{
-    .content-wrapper{
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        color:#999999;
-    }
+  .content-wrapper{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    color:#999999;
+  }
 }
 </style>

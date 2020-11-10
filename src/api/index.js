@@ -8,9 +8,7 @@ var limitTime = 1000;
 var requestingId = "";
 const removePending = (key, isRequest = false) => {
   if (pending[key] && isRequest) {
-    
     pending[key]();
-    
   }
 }
 const getRequestIdentify = (config, isReuest = false) => {
@@ -28,7 +26,6 @@ axios.interceptors.response.use(
           // setTimeout(() => {
           //   removePending(requestData)
           // },1500)
-         
       return response;
     },
     error => {
@@ -42,12 +39,9 @@ axios.interceptors.response.use(
     }
   );
 
-
-
 const service = axios.create({
   timeout: 10000, // request timeout,
 })
-
 
 service.defaults.baseURL = "/api"
 // service.defaults.withCredentials = true
@@ -70,7 +64,6 @@ service.interceptors.request.use(
       return Promise.reject(error);
     });
 // 基本操作模块
-
 
 // function throttle(fn, wait, options = {}) {
 //     let timer;
@@ -97,6 +90,5 @@ service.interceptors.request.use(
 //     }
 //     return throttled;
 // }
-
 export const basicOp = basicOperation
 export default service

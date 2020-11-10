@@ -7,12 +7,12 @@
       @onclick="publishpages"
     ></content-top>
     <div class="tags"  @click.stop="gotooa">
-   XX线下活动
-   <div class="tags_xiaoxi" @click.stop="newkonjian">
-  <bage  ref="bage"></bage>
-   <span class="icon iconfont iconzu-copy"></span>
+      XX线下活动
+      <div class="tags_xiaoxi" @click.stop="newkonjian">
+        <bage  ref="bage"></bage>
+        <span class="icon iconfont iconzu-copy"></span>
+      </div>
     </div>
-   </div>
     <scroll class="list" ref="scroll" :pullDownRefresh="pullDownRefresh"   :pullUpLoad="pullUpLoad"
     @scrollToEnd="scrollToEnd" @scrollToTop="scrollToTop">
       <div class="content-middle">
@@ -58,7 +58,6 @@
               </div>
             </div>
           </div>
-
           <div
             v-if="item.user_comment"
             class="comment"
@@ -109,15 +108,14 @@ export default {
   data() {
     return {
       opensdf:true,
-       pullDownRefresh: {
-  threshold: 50,
-  stop: 20
-},
-pullUpLoad: {
-  threshold: 100,
-},
-
-seacherMore:true,
+      pullDownRefresh: {
+        threshold: 50,
+        stop: 20
+      },
+      pullUpLoad: {
+        threshold: 100,
+      },
+      seacherMore:true,
       hasMore:true,
       currentIndex: 0,
       imageUrl: [
@@ -125,7 +123,6 @@ seacherMore:true,
           src: ""
         }
       ],
-
       selectitem: "",
       tishi: "说点什么:",
       iconF: "#iconlove",
@@ -143,7 +140,6 @@ seacherMore:true,
         page: 1,
         size:10
       },
-
       xinxix: {
         type: "first",
         username: store.state.user.username
@@ -162,7 +158,7 @@ seacherMore:true,
         nickName:store.state.user.user.nickName,
         nickNames:"",
         img:store.state.user.user.img,
-         s_content:"",
+        s_content:"",
         s_back:""
       },
       sendinformations: {
@@ -175,307 +171,293 @@ seacherMore:true,
         nickNames:"",
         username_zy: "25",
         nickName:store.state.user.user.nickName,
-        
         img:store.state.user.user.img,
-         s_content:"",
+        s_content:"",
         s_back:""
       },
       options: {
         getThumbBoundsFn(index) {
           // find thumbnail element
-          let thumbnail = document.querySelectorAll(".actives")[index];
+          let thumbnail = document.querySelectorAll(".actives")[index]
           // get window scroll Y
           let pageYScroll =
-            window.pageYOffset || document.documentElement.scrollTop;
+            window.pageYOffset || document.documentElement.scrollTop
           // optionally get horizontal scroll
           // get position of element relative to viewport
           let rect = thumbnail.getBoundingClientRect();
           // w = width
-          return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+          return { x: rect.left, y: rect.top + pageYScroll, w: rect.width }
           // Good guide on how to get element coordinates:
           // http://javascript.info/tutorial/coordinates
         }
       }
-    };
+    }
   },
   computed: {
     imageUrlok() {
-      return this.imageUrl[0].src == "" ? false : true;
+      return this.imageUrl[0].src == "" ? false : true
     },
     text() {
       return function(arrs) {
         if(arrs){
-           let result = arrs.find(function(item) {
-          return item.c_username === store.state.user.username;
-        });
-        if (result) {
-          return "#iconloves";
-        } else {
-          return "#iconlove";
-        }
+          let result = arrs.find(function(item) {
+            return item.c_username === store.state.user.        username;
+          });
+          if (result) {
+            return "#iconloves"
+          } else {
+            return "#iconlove"
+          }
         }
         else{
-          return "#iconlove";
+          return "#iconlove"
         }
-        
-      };
+      }
     },
     result_s() {
-      return this.information.length > 0 ? "已经到底了" : "暂无";
+      return this.information.length > 0 ? "已经到底了" : "暂无"
     },
     i_class() {
-      return this.switcher ? "active" : "noactive";
+      return this.switcher ? "active" : "noactive"
     },
     a_class() {
-      return this.switcher ? "noactive" : "active";
+      return this.switcher ? "noactive" : "active"
     },
     iconT() {
       return this.$route.path.indexOf("/recommend") != -1
         ? "#iconlove"
-        : "#iconloves";
+        : "#iconloves"
     },
     xinxiy() {
-      return store.state.user.konjian[store.state.user.username];
+      return store.state.user.konjian[store.state.user.username]
     }
   },
   created() {
-    this.initData();
-    
+    this.initData()
   },
   methods: {
-    gotooa(){
-this.$router.push({
+    gotooa() {
+      this.$router.push({
         path: `/offlineActivity`
       });
     },
-    scrollToEnd(){
-    
+    scrollToEnd() {
       if(this.seacherMore&&(this.opensdf)){
-
-         ++this.form.page;
-         this.hasMore=true;
-        this.initData();
+        ++this.form.page
+        this.hasMore=true
+        this.initData()
         setTimeout(() => {
-              
-               this.$refs.scroll.finishPullUp();
-            }, 300);
-      }
-       
+          this.$refs.scroll.finishPullUp()
+        }, 300)
+      }  
     },
-      checkMore(number) {
-        if (number < this.form.size) {
-          this.seacherMore = false;
-        }
-      },
-    scrollToTop(){
-  
-      this.form.page=1;
-      this.hasMore=true,
-      this.informations=[];
-      this.initData();
-     setTimeout(() => {
-              this.hasMore=false
-               this.$refs.scroll.finishPullDown();
-            }, 300);
+    checkMore(number) {
+      if (number < this.form.size) {
+        this.seacherMore = false
+      }
+    },
+    scrollToTop() {
+      this.form.page=1
+      this.hasMore=true
+      this.informations=[]
+      this.initData()
+      setTimeout(() => {
+        this.hasMore=false
+        this.$refs.scroll.finishPullDown()
+      }, 300)
     },
     show(index, imgs, w, h, indexs) {
-      this.imageUrl[0].src = imgs;
-      this.imageUrl[0].w = w;
-      this.imageUrl[0].h = h;
-      this.currentIndex = indexs;
+      this.imageUrl[0].src = imgs
+      this.imageUrl[0].w = w
+      this.imageUrl[0].h = h
+      this.currentIndex = indexs
       setTimeout(() => {
-        this.$refs.previewers.show(index);
-      }, 0);
+        this.$refs.previewers.show(index)
+      }, 0)
     },
     follow(arrs, s_id,usernames) {
-    
       let result = arrs.findIndex(function(item) {
-        return item.c_username === store.state.user.username;
-      });
-
+        return item.c_username === store.state.user.username
+      })
       if (result >= 0) {
         this.informations.forEach(item => {
           if (item.s_id == s_id) {
-            item.likes -= 1;
-            this.websocketsen(s_id, 0);
+            item.likes -= 1
+            this.websocketsen(s_id, 0)
           }
-        });
-        arrs.splice(result, 1);
-        return;
+        })
+        arrs.splice(result, 1)
+        return
       }
       if (result < 0) {
         this.informations.forEach(item => {
           if (item.s_id == s_id) {
-            item.likes += 1;
-            this.sendinformations.s_back=item.imgs;
-            this.sendinformations.s_content=item.content;
+            item.likes += 1
+            this.sendinformations.s_back=item.imgs
+            this.sendinformations.s_content=item.content
             this.sendinformations.username_zy=usernames
-            this.websocketsen(s_id, 1);
+            this.websocketsen(s_id, 1)
           }
-        });
-        arrs.unshift(this.favor_is);
+        })
+        arrs.unshift(this.favor_is)
       }
-   
     },
     websocketsends() {
       //数据发送
-      this.open_input_comment = !this.open_input_comment;
+      this.open_input_comment = !this.open_input_comment
       this.sendinformation.time = new Date()
         .getTime()
         .toString()
-        .slice(0, -3);
-      this.sendinformation.recontact = this.selectitem;
-      this.sendinformation.s_id = this.open_id;
-      this.sendinformation.content = this.$refs.input.value;
-      this.$refs.input.value = "";
-      this.selectitem = "";
+        .slice(0, -3)
+      this.sendinformation.recontact = this.selectitem
+      this.sendinformation.s_id = this.open_id
+      this.sendinformation.content = this.$refs.input.value
+      this.$refs.input.value = ""
+      this.selectitem = ""
       store.state.user.websock.send(
         JSON.stringify(createComments(this.sendinformation))
-      );
+      )
       this.informations.forEach(item => {
         if (item.s_id == this.open_id) {
-          item.user_comment.push(createComments(this.sendinformation));
-          item.comments += 1;
+          item.user_comment.push(createComments(this.sendinformation))
+          item.comments += 1
         }
       });
       this.$nextTick(() => {
-        this.$refs.scroll.refresh();
-      });
+        this.$refs.scroll.refresh()
+      })
     },
     websocketsen(s_id, content) {
       //数据发送
       this.sendinformations.time = new Date()
         .getTime()
         .toString()
-        .slice(0, -3);
-      this.sendinformations.s_id = s_id;
-      this.sendinformations.content = content;
+        .slice(0, -3)
+      this.sendinformations.s_id = s_id
+      this.sendinformations.content = content
       store.state.user.websock.send(
         JSON.stringify(createComments(this.sendinformations))
-      );
+      )
     },
     websocketclose(e) {
       //关闭
-      console.log("断开连接", e);
+      console.log("断开连接", e)
     },
     publishpages() {
       this.$router.push({
         path: `/publishpage`
-      });
+      })
     },
     newkonjian(){
       this.$router.push({
         path: `/newkonjian`
-      });
-      this.$refs.bage.change();
+      })
+      this.$refs.bage.change()
     },
     change_open(sid,username_zy,imgs,content) {
-       this.sendinformation.s_content=content;
-      this.sendinformation.s_back=imgs;
-      this.tishi = "说点什么:";
-     this.sendinformation.username_zy=username_zy;
-      this.open_input_comment = !this.open_input_comment;
-      // this.sendinfoormation.username_zy = username ;
-      this.open_id = sid;
-      this.$refs.input.value = "";
+       this.sendinformation.s_content=content
+      this.sendinformation.s_back=imgs
+      this.tishi = "说点什么:"
+     this.sendinformation.username_zy=username_zy
+      this.open_input_comment = !this.open_input_comment
+      // this.sendinfoormation.username_zy = username 
+      this.open_id = sid
+      this.$refs.input.value = ""
     },
     check(username) {
       if (store.state.user.username == username) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     },
     change_opens(sid, username,imgs,content,nickNames) {
       if (this.check(username)) {
-        return;
-        
+        return
       } else {
-     
-        this.sendinformation.nickNames=nickNames;
-         this.sendinformation.s_content=content;
-        this.sendinformation.s_back=imgs;
-        this.sendinformation.username_zy=username;
-        this.tishi = "回复" + username + ":";
-        this.open_input_comment = !this.open_input_comment;
-        this.open_id = sid;
-        this.selectitem = username;
-        this.$refs.input.value = "";
+        this.sendinformation.nickNames=nickNames
+        this.sendinformation.s_content=content
+        this.sendinformation.s_back=imgs
+        this.sendinformation.username_zy=username
+        this.tishi = "回复" + username + ":"
+        this.open_input_comment = !this.open_input_comment
+        this.open_id = sid
+        this.selectitem = username
+        this.$refs.input.value = ""
       }
     },
     back() {
-      this.$router.back();
+      this.$router.back()
     },
     initData() {
       basicOp
         .getsquare(this.form)
         .then(res => {
           if (res.data.code == "10000") {
-            this.information = res.data.data;
-            this.informations =[...this.informations, ...this.information];
+            this.information = res.data.data
+            this.informations =[...this.informations, ...this.information]
             setTimeout(() => {
-              this.$refs.scroll.refresh();
-              this.hasMore=false;
+              this.$refs.scroll.refresh()
+              this.hasMore=false
               this.checkMore(this.information.length) 
-            }, 40);
+            }, 40)
           }
         })
         .catch(res => {
-          console.log(res);
-        });
+          console.log(res)
+        })
     },
     formatTime(time) {
-      let unixtime = time;
-      let Ys = this.today.getFullYear(); //获取年份;
+      let unixtime = time
+      let Ys = this.today.getFullYear() //获取年份;
       let timeStamp = this.today
         .getTime()
         .toString()
-        .slice(0, -3);
-      let unixTimestamp = new Date(unixtime * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let hour = unixTimestamp.getHours();
-      let Y = unixTimestamp.getFullYear(); //获取年份
+        .slice(0, -3)
+      let unixTimestamp = new Date(unixtime * 1000) //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let hour = unixTimestamp.getHours()
+      let Y = unixTimestamp.getFullYear() //获取年份
       let M =
         unixTimestamp.getMonth() + 1 > 10
           ? unixTimestamp.getMonth() + 1
-          : "0" + (unixTimestamp.getMonth() + 1);
+          : "0" + (unixTimestamp.getMonth() + 1)
       let D =
         unixTimestamp.getDate() > 10
           ? unixTimestamp.getDate()
-          : "0" + unixTimestamp.getDate();
+          : "0" + unixTimestamp.getDate()
       let h =
         unixTimestamp.getHours() > 10
           ? unixTimestamp.getHours()
-          : "0" + unixTimestamp.getHours();
+          : "0" + unixTimestamp.getHours()
       let m =
         unixTimestamp.getMinutes() > 10
           ? unixTimestamp.getMinutes()
-          : "0" + unixTimestamp.getMinutes();
+          : "0" + unixTimestamp.getMinutes()
       if (timeStamp - unixtime < 86400) {
         // 是否为当天
         if (hour >= 0 && hour < 6) {
-          return "凌晨 " + h + ":" + m;
+          return "凌晨 " + h + ":" + m
         }
         if (hour >= 6 && hour < 12) {
-          return "早上 " + h + ":" + m;
+          return "早上 " + h + ":" + m
         }
         if (hour === 12) {
-          return "中午 " + h + ":" + m;
+          return "中午 " + h + ":" + m
         }
         if (hour > 12 && hour < 18) {
-          return "下午 " + h + ":" + m;
+          return "下午 " + h + ":" + m
         }
         if (hour >= 18 < hour < 24) {
-          return "晚上 " + h + ":" + m;
+          return "晚上 " + h + ":" + m
         }
       }
 
-      return M + "-" + D + " " + h + ":" + m;
+      return M + "-" + D + " " + h + ":" + m
     }
   },
   watch: {
      xinxiy: {
       handler(newValue, oldValue) {
-
         this.information.some((item, i) => {
           if ((item.s_id == newValue[newValue.length - 1].S_Id)) {     
             if(newValue[newValue.length - 1].type!="comments_send"){
@@ -483,27 +465,24 @@ this.$router.push({
             item.user_comment.push(newValue[newValue.length - 1]);
             return true;
             }
-             else if(!item.user_comments.find(function(item){
-     return item==newValue[newValue.length - 1].c_username
- })){
+            else if(!item.user_comments.find(function(item){
+              return item==newValue[newValue.length - 1].c_username
+            })){
               item.likes=item.likes+1;
             }
-         
           }
-        
-       
-        });
+        })
       }
     },
     $route(to, from) {
       if (from.meta.keepAlive == false && from.path == "/publishpage"&&to.path=="/Faxian") {
-        this.opensdf=false;
-        this.scrollToTop();
-        from.meta.keepAlive = true;
-        this.opensdf=false;
+        this.opensdf=false
+        this.scrollToTop()
+        from.meta.keepAlive = true
+        this.opensdf=false
           setTimeout(() => {
-       this.opensdf=true;
-      }, 500);
+       this.opensdf=true
+      }, 500)
       }
     }
   },
@@ -515,7 +494,7 @@ this.$router.push({
     previewer,
     Bage
   }
-};
+}
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
@@ -558,7 +537,6 @@ this.$router.push({
     .tags_xiaoxi{
       color: #898989;
       position: relative;
-      
       .icon {
 			font-size: 0.23rem;
 			width: 0.3rem;
@@ -566,7 +544,7 @@ this.$router.push({
 			display: flex;
 			align-items: center;
       justify-content: center;
-		}
+		  }
     }
   }
   .content-middle {
@@ -609,7 +587,6 @@ this.$router.push({
           }
         }
       }
-
       .youquan_a_middle {
         word-break: break-all;
         font-size: 0.16rem;
@@ -628,7 +605,6 @@ this.$router.push({
         height: 0.4rem;
         border-top: 0.01rem solid rgba(236, 236, 236, 1);
         border-bottom: 0.01rem solid rgba(236, 236, 236, 1);
-
         .control {
           display: flex;
           width: 1rem;
@@ -637,7 +613,6 @@ this.$router.push({
             align-items: center;
             margin: 0 0.1rem;
             color: #3f3f3f;
-
             .icon {
               width: 0.2rem;
               height: 0.2rem;
@@ -664,7 +639,6 @@ this.$router.push({
   width: 3.75rem;
   overflow: hidden;
 }
-
 .input_comment {
   z-index: 2000;
   border-top: 0.01rem solid rgba(236, 236, 236, 1);
@@ -685,14 +659,12 @@ this.$router.push({
     justify-content: center;
     width: 0.85rem;
     height: 0.45rem;
-
     .icon {
       width: 0.3rem;
       height: 0.3rem;
       overflow: hidden;
     }
   }
-
   .sendin {
     flex: 1 1 0;
     height: 0.45rem;
@@ -700,7 +672,6 @@ this.$router.push({
     align-items: center;
     font-size: 0.15rem;
     background: #f4f2f3;
-
     input {
       outline: none;
       margin: 0 0.1rem;
@@ -708,7 +679,6 @@ this.$router.push({
       height: 0.4rem;
       width: 100%;
       font-size: 0.15rem;
-
       &::placeholder {
         font-size: 0.15rem;
         color: rgba(170, 170, 170, 1);

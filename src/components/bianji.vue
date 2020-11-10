@@ -1,7 +1,6 @@
 <template>
   <div class="perfectinformations">
     <content-top :home="xinxi.t_home" :title="xinxi.t_title"></content-top>
-
     <div class="addressadd">
       <form>
         <ul>
@@ -23,7 +22,6 @@
               ></x-input>
             </group>
           </li>
-
           <li>
             <label>性别</label>
             <div
@@ -33,7 +31,6 @@
               :class="{ active:index==current}"
             >{{ option.name }}</div>
           </li>
-
           <li>
             <group>
               <datetime
@@ -50,7 +47,6 @@
               <popup-picker title="身高" :data="height" v-model="information.height"></popup-picker>
             </group>
           </li>
-
           <li>
             <group>
               <x-input
@@ -82,7 +78,6 @@
         </ul>
       </form>
     </div>
-
     <div class="perfectinformation">
       <div class="perfect-information">
         <ul>
@@ -94,10 +89,8 @@
               <div class="item-img" v-show="xianshi">
                 <img alt="用户头像" src="../assets/fx_pic_add@2x.png" @click="imgadd" />
               </div>
-
               <div class="item-img" v-for="(item, index) in imageUrl" @click="show(index)">
                 <img class="avatar previewer-demo-img" :src="item.src" />
-
                 <svg
                   class="item-img-icon"
                   aria-hidden="true"
@@ -126,7 +119,6 @@
           </li>
         </ul>
       </div>
-
       <div class="address-information">
         <ul>
           <li>
@@ -135,10 +127,8 @@
           </li>
         </ul>
       </div>
-
       <div class="sumbit-button" @click="onUp">保存</div>
     </div>
-
     <div v-transfer-dom>
       <previewer :list="imageUrl" ref="previewer" :options="options"></previewer>
     </div>
@@ -167,7 +157,6 @@ export default {
   directives: {
     TransferDom
   },
-
   data() {
     return {
       filesList: [],
@@ -190,7 +179,6 @@ export default {
         { name: "男", value: "man" },
         { name: "女", value: "woman" }
       ],
-
       height: [
         [
           "150cm",
@@ -257,141 +245,130 @@ export default {
       deleteid: [],
       file: "",
       photo: "",
-
       options: {
         getThumbBoundsFn(index) {
           // find thumbnail element
           let thumbnail = document.querySelectorAll(".previewer-demo-img")[
             index
-          ];
+          ]
           // get window scroll Y
           let pageYScroll =
-            window.pageYOffset || document.documentElement.scrollTop;
+            window.pageYOffset || document.documentElement.scrollTop
           // optionally get horizontal scroll
           // get position of element relative to viewport
-          let rect = thumbnail.getBoundingClientRect();
+          let rect = thumbnail.getBoundingClientRect()
           // w = width
-          return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+          return { x: rect.left, y: rect.top + pageYScroll, w: rect.width }
           // Good guide on how to get element coordinates:
           // http://javascript.info/tutorial/coordinates
         }
       }
-    };
+    }
   },
   created() {
-    this.initData();
+    this.initData()
     this.ceshi()
   },
   computed: {
     xianshi() {
-      return this.imageUrl.length >= 3 ? false : true;
+      return this.imageUrl.length >= 3 ? false : true
     }
   },
   methods: {
-    ceshi(){
-var num1 = 1, num2 = 2; 
-function cal() { var num1 = 10, num2 = 20; console.log(this.num1 + this.num2); } 
-var calBind = cal.bind({ num1: 100, num2: 200 }) 
-new cal(); cal(); new calBind(); calBind();
+    ceshi() {
+      var num1 = 1, num2 = 2; 
+      function cal() { var num1 = 10, num2 = 20; console.log(this.num1 + this.num2) } 
+      var calBind = cal.bind({ num1: 100, num2: 200 }) 
+      new cal() cal() new calBind() calBind()
     },
     initData() {
-      this.information = store.state.user.user;
-      this.current = this.information.sex;
-      this.imageUrl = this.information.imageUrl;
+      this.information = store.state.user.user
+      this.current = this.information.sex
+      this.imageUrl = this.information.imageUrl
     },
     deletealbum(index, id) {
-            
-      this.imageUrl.splice(index, 1);
+      this.imageUrl.splice(index, 1)
       if(id){
-this.deleteid.push(id);
-
-      }
-      
+        this.deleteid.push(id)
+      } 
     },
     show(index) {
-      this.$refs.previewer.show(index);
+      this.$refs.previewer.show(index)
     },
     onUp:debounce(
       function () { 
-        
-      var form = new FormData();
-      for (var j = 0, len = this.imageUrl.length; j < len; j++) {
-        if (this.imageUrl[j].file) {
-          form.append("album[]", this.imageUrl[j].file);
-          form.append("albumname[]", this.imageUrl[j].file.name);
+        var form = new FormData();
+        for (var j = 0, len = this.imageUrl.length; j < len; j++) {
+          if (this.imageUrl[j].file) {
+            form.append("album[]", this.imageUrl[j].file)
+            form.append("albumname[]", this.imageUrl[j].file.name)
+          }
         }
-      }
-      form.append("delete[]", this.deleteid);
-      form.append("file", this.information.file);
-      form.append("filename", this.information.file.name);
-      form.append("address", this.information.address);
-      form.append("birthday", this.information.birthday);
-      form.append("height", this.information.height);
-      form.append("username", this.information.username);
-      form.append("id", this.information.id);
-      form.append("income", this.information.income);
-      form.append("nickName", this.information.nickName);
-      form.append("occupation", this.information.occupation);
-      form.append("sex", this.information.sex);
-      form.append("brief", this.information.brief);
-     basicOp
-        .updates(form)
-        .then(res => {
-          this.$message()
-          if (res.data.code == "10000") {
-            
-        setTimeout(() => {
-        this.$message("success","保存成功")
-         setTimeout(() => {
-     this.$router.back()
-      }, 400)
-      store.commit('SET_USERNAMEZY',"sdad");
-      }, 400)
-          } 
-        })
-        .catch(res => {
+        form.append("delete[]", this.deleteid)
+        form.append("file", this.information.file)
+        form.append("filename", this.information.file.name)
+        form.append("address", this.information.address)
+        form.append("birthday", this.information.birthday)
+        form.append("height", this.information.height)
+        form.append("username", this.information.username)
+        form.append("id", this.information.id)
+        form.append("income", this.information.income)
+        form.append("nickName", this.information.nickName)
+        form.append("occupation", this.information.occupation)
+        form.append("sex", this.information.sex)
+        form.append("brief", this.information.brief)
+        basicOp
+          .updates(form)
+          .then(res => {
+            this.$message()
+            if (res.data.code == "10000") {  
+              setTimeout(() => {
+                this.$message("success","保存成功")
+                setTimeout(() => {
+                  this.$router.back()
+                }, 400)
+                store.commit('SET_USERNAMEZY',"sdad")
+              }, 400)
+           } 
+          })
+          .catch(res => {
             this.$message("error","保存失败")
-        })
-      },500),
-
+          })
+    },500),
     daad() {
-      this.informationx = this.information;
+      this.informationx = this.information
     },
     addClass(index) {
-      this.current = index;
-      this.information.sex = index;
+      this.current = index
+      this.information.sex = index
     },
     back() {
-      this.$router.back();
+      this.$router.back()
     },
-
     imgadd() {
-      this.$refs.clearFile.click();
+      this.$refs.clearFile.click()
     },
     fans(e) {
-      let inputDOM = this.$refs.clearFile;
+      let inputDOM = this.$refs.clearFile
       // 通过DOM元素取文件数据
-      this.file = inputDOM.files[0];
-
-      let windowURL = window.URL || window.webkitURL;
-      let value = windowURL.createObjectURL(this.file);
-      this.imageUrl.push(createPicture(value, this.file));
-      this.$refs.clearFile.value = "";
+      this.file = inputDOM.files[0]
+      let windowURL = window.URL || window.webkitURL
+      let value = windowURL.createObjectURL(this.file)
+      this.imageUrl.push(createPicture(value, this.file))
+      this.$refs.clearFile.value = ""
     },
     imgadds() {
-      this.$refs.clearFiles.click();
+      this.$refs.clearFiles.click()
     },
     imageupload(e) {
-      let inputDOM = this.$refs.clearFiles;
-      this.file = inputDOM.files[0];
+      let inputDOM = this.$refs.clearFiles
+      this.file = inputDOM.files[0]
       // 文件对象
-
-      this.information.file = this.file;
-      let windowURL = window.URL || window.webkitURL;
-      let value = windowURL.createObjectURL(this.file);
-
+      this.information.file = this.file
+      let windowURL = window.URL || window.webkitURL
+      let value = windowURL.createObjectURL(this.file)
       this.information.img = value;
-      this.$refs.clearFiles.value = "";
+      this.$refs.clearFiles.value = ""
     }
   },
   components: {
@@ -414,7 +391,6 @@ this.deleteid.push(id);
   margin-top: 0.5rem;
   height: 100%;
   background: #f4f5f7;
-
   .perfectinformation {
     margin: 0 0.1rem 0 0.1rem;
     padding-top: 0.1rem;
@@ -424,7 +400,6 @@ this.deleteid.push(id);
       background: #ffffff;
       margin-bottom: 0.1rem;
       border-radius: 0.05rem;
-
       p {
         font-size: 0.17rem;
         color: rgba(0, 0, 0, 1);
@@ -432,7 +407,6 @@ this.deleteid.push(id);
         font-weight: 500;
         margin-bottom: 0.1rem;
         color: rgba(0, 0, 0, 1);
-
         span {
           width: 0.17rem;
           height: 0.17rem;
@@ -445,13 +419,11 @@ this.deleteid.push(id);
           border-radius: 50%;
         }
       }
-
       ul {
         li {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-
           span {
             font-size: 0.15rem;
             font-family: PingFang SC;
@@ -459,34 +431,27 @@ this.deleteid.push(id);
             color: rgba(51, 51, 51, 1);
             display: inline-block;
           }
-
           input {
             margin-top: 0.1rem;
             font-size: 0.15rem;
             height: 0.4rem;
             width: 3.19rem;
             padding-left: 0.18rem;
-
             background: rgba(0, 0, 0, 0.03);
-
             border-radius: 0.05rem;
-
             outline: none;
             color: rgba(51, 51, 51, 1);
-
             &::placeholder {
               font-size: 0.13rem;
               color: #999999;
             }
           }
-
           .hint-information {
             display: flex;
             justify-content: space-between;
             position: relative;
             align-items: center;
             height: 0.45rem;
-
             &::after {
               content: "";
               position: absolute;
@@ -500,7 +465,6 @@ this.deleteid.push(id);
           }
           .img-adds {
             display: flex;
-
             align-items: center;
             margin: 0.15rem 0;
             margin-bottom: 0.1rem;
@@ -523,7 +487,6 @@ this.deleteid.push(id);
                 height: 0.2rem;
                 overflow: hidden;
               }
-
               &.active {
                 .item-img-icon {
                   display: block;
@@ -531,23 +494,19 @@ this.deleteid.push(id);
               }
             }
           }
-
           .img-add {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin: 0.15rem 0;
             margin-bottom: 0.1rem;
-
             img {
               width: 0.9rem;
               height: 0.9rem;
               border-radius: 0.05rem;
             }
-
             ul {
               display: flex;
-
               li {
                 width: 0.4rem;
                 height: 0.28rem;
@@ -556,7 +515,6 @@ this.deleteid.push(id);
                 font-weight: bold;
                 border: 0.01rem solid rgba(51, 51, 51, 0.2);
               }
-
               li:nth-of-type(1) {
                 font-size: 0.15rem;
                 width: 0.75rem;
@@ -566,7 +524,6 @@ this.deleteid.push(id);
                 font-family: PingFang SC;
                 font-weight: 500;
               }
-
               li:nth-of-type(3) {
                 border-left: 0;
                 border-right: 0;
@@ -574,7 +531,6 @@ this.deleteid.push(id);
             }
           }
         }
-
         li:nth-of-type(4) {
           span {
             span {
@@ -584,7 +540,6 @@ this.deleteid.push(id);
         }
       }
     }
-
     .address-information {
       padding: 0.18rem;
       background: #ffffff;
@@ -596,27 +551,21 @@ this.deleteid.push(id);
           flex-direction: column;
           justify-content: space-between;
           margin: 0.1rem 0;
-
           span {
             font-size: 0.15rem;
             font-family: PingFang SC;
             font-weight: 500;
             color: rgba(51, 51, 51, 1);
           }
-
           input {
             font-size: 0.15rem;
             height: 0.4rem;
             width: 3.19rem;
             padding-left: 0.18rem;
-
             background: rgba(0, 0, 0, 0.03);
-
             border-radius: 0.05rem;
-
             outline: none;
             color: rgba(51, 51, 51, 1);
-
             &::placeholder {
               font-size: 0.13rem;
               color: #999999;
@@ -632,7 +581,6 @@ this.deleteid.push(id);
             font-family: PingFang SC;
             font-weight: 400;
             height: 1.4rem;
-
             background: rgba(0, 0, 0, 0.03);
             &::placeholder {
               font-size: 0.13rem;
@@ -649,7 +597,6 @@ this.deleteid.push(id);
         }
       }
     }
-
     .sumbit-button {
       width: 3.55rem;
       height: 0.48rem;
@@ -662,7 +609,6 @@ this.deleteid.push(id);
       border-radius: 0.05rem;
     }
   }
-
   .addressadd {
     margin: 0 0.1rem 0 0.1rem;
     padding: 0.18rem;
@@ -676,7 +622,6 @@ this.deleteid.push(id);
           display: flex;
           justify-content: space-between;
           align-items: center;
-
           position: relative;
           .address-button {
             font-size: 0.13rem;
@@ -725,7 +670,6 @@ this.deleteid.push(id);
             position: absolute;
             bottom: 0;
             width: 3.45rem;
-
             height: 0.01rem;
             background: rgba(239, 239, 239, 1);
           }

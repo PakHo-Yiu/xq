@@ -26,7 +26,7 @@
   </div>
 </template>
 
-    <script>
+<script>
 import { basicOp } from "@/api/index.js";
 import store from "@/store";
 import { saveBrowsing, createList } from "@/common/js/storage.js";
@@ -38,7 +38,7 @@ export default {
   },
   created() {
     this.initData();
-    this.getnewmessage();
+    this.getnewmessage()
   },
   mounted(){
     this.getallmessage()
@@ -49,20 +49,20 @@ basicOp
         .getallmessage()
         .then(res => {
           if (res.data.code == "10000") {
-           store.dispatch('Allmessage',res.data.data);
+           store.dispatch('Allmessage',res.data.data)
           }
         })
-        .catch(res => {});
+        .catch(res => {})
     },
     initData() {
       basicOp
         .getblinddate()
         .then(res => {
           if (res.data.code == "10000") {
-            this.information = res.data.data;
+            this.information = res.data.data
           }
         })
-        .catch(res => {});
+        .catch(res => {})
     },
     getnewmessage() {
       basicOp
@@ -70,36 +70,35 @@ basicOp
         .then(res => {
           if (res.data.code == "10000") {
 
-            store.dispatch('Newmessage',res.data.data);
+            store.dispatch('Newmessage',res.data.data)
           }
         })
         .catch(res => {});
     },
     /* 根据出生年月计算岁数 默认月份相同即满岁 */
     formatAge(val) {
-      let time = val.split("-");
-      let unixTimestamp = new Date(); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let Y = unixTimestamp.getFullYear(); //获取年份
+      let time = val.split("-")
+      let unixTimestamp = new Date() //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let Y = unixTimestamp.getFullYear() //获取年份
       let M =
         unixTimestamp.getMonth() + 1 > 10
           ? unixTimestamp.getMonth() + 1
-          : "0" + (unixTimestamp.getMonth() + 1);
+          : "0" + (unixTimestamp.getMonth() + 1)
       return M - Number(time[1]) >= 0
         ? Y - Number(time[0]) + "岁"
-        : Y - Number(time[0]) - 1 + "岁";
+        : Y - Number(time[0]) - 1 + "岁"
     },
     selectresult(username, img, nickName) {
-      store.commit("SET_USERNAMEZY", username);
-      saveBrowsing(createList(username, img, nickName));
-
+      store.commit("SET_USERNAMEZY", username)
+      saveBrowsing(createList(username, img, nickName))
       this.$router
         .push({
           path: `/zhuye`
         })
-        .catch(err => {});
+        .catch(err => {})
     }
   }
-};
+}
 </script>
     
 <style scoped  rel="stylesheet/scss" lang="scss">

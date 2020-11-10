@@ -35,8 +35,6 @@ import {createRmessages} from '@/common/js/rmessage.js'
       nickName: Data.nickName
     }))
   } 
-
- 
   export function createRMessage(Data) {
     var username = Data.username
     if(!store.state.user.xinxi[Data.username]){
@@ -95,8 +93,6 @@ import {createRmessages} from '@/common/js/rmessage.js'
       }else{
         initRMessage(item)
       }
- 
-      
     })
   }
   export function createNMessage(Date){
@@ -115,21 +111,14 @@ import {createRmessages} from '@/common/js/rmessage.js'
         basicOp.newtalllist(createRmessages(val)).then(res => {
                }).catch(res => {
          })
-     
          return;
-
     }
     if (index === 0) {
           return;
         }
     if(index > 0){
-
-    
       arr.splice(index, 1)
       arr.unshift(createRmessages(val))
-     
      return;
     }
-    
-   
   }

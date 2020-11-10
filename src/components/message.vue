@@ -47,26 +47,23 @@ export default {
         t_title: "消息"
       },
       information: {}
-    };
+    }
   },
-
   created() {
-    this.initData();
+    this.initData()
   },
   methods: {
     selectItem(item) {
       if (this.checkSlide()) {
-        this.restSlide();
+        this.restSlide()
       } else {
-       store.commit("SET_CHAT", item);
-        
+       store.commit("SET_CHAT", item)
         setTimeout(() => {
            this.$router.push({
           path: `/message/${item.recontact}`
         });
          clearzero(item.recontact);
     }, 50)
-        
       }
     },
     deletes(item) {
@@ -81,8 +78,8 @@ export default {
           console.log(res);
         });
     },
-     count(value){
-          return store.state.user.newmessage[value];
+    count(value) {
+      return store.state.user.newmessage[value];
     },
     initData() {
       basicOp
@@ -99,7 +96,7 @@ export default {
   components: {
     ContentTop
   }
-};
+}
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
@@ -108,7 +105,6 @@ export default {
   margin-left: 0;
   margin-top: 0.5rem;
   margin-right: 0;
-
   background: rgba(255, 255, 255, 1);
   overflow: hidden;
   .message-item {
@@ -130,7 +126,6 @@ export default {
       height: 0.01rem;
       background: rgba(239, 239, 239, 1);
     }
-
     .avatar-img {
       display: inline-block;
       width: 0.54rem;

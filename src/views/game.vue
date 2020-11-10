@@ -1,6 +1,6 @@
 <template>
   <div>
-       <null-result v-if="!Browsinglist_information.length" ></null-result>
+    <null-result v-if="!Browsinglist_information.length" ></null-result>
     <div class="content-middle">
       <div
         class="message-item"
@@ -24,7 +24,7 @@
   </div>
 </template>
  
-    <script>
+<script>
 import { basicOp } from "@/api/index.js";
 import store from "@/store";
 import { clearBrowsing, deleteBrowsing } from "@/common/js/storage.js";
@@ -42,52 +42,51 @@ export default {
     Browsinglist_information() {
        return store.state.user.browsing_history == ""
         ? this.browsing_lish
-        : store.state.user.browsing_history;
+        : store.state.user.browsing_history
     }
   },
   methods: {
     selectresult(username) {
       if (this.checkSlide()) {
-          this.restSlide();
-        } else {
-           store.commit("SET_USERNAMEZY", username);
-      this.$router
-        .push({
+          this.restSlide()
+      } else {
+        store.commit("SET_USERNAMEZY", username)
+        this.$router
+          .push({
           path: `/zhuye`
-        })
-        .catch(err => {});
-        }
+          })
+          .catch(err => {})
+      }
     },
     deletes(item) {
-        this.restSlide()
-        deleteBrowsing(item);
-       
+      this.restSlide()
+      deleteBrowsing(item)
       },
     formatTime(time) {
       let unixtime = time;
-      let Ys = this.today.getFullYear(); //获取年份;
+      let Ys = this.today.getFullYear() //获取年份;
       let timeStamp=this.today.getDate()  > 9
           ? this.today.getDate() 
-          : "0" + this.today.getDate();
-      let unixTimestamp = new Date(unixtime * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let hour = unixTimestamp.getHours();
-      let Y = unixTimestamp.getFullYear(); //获取年份
+          : "0" + this.today.getDate()
+      let unixTimestamp = new Date(unixtime * 1000) //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let hour = unixTimestamp.getHours()
+      let Y = unixTimestamp.getFullYear() //获取年份
       let M =
         unixTimestamp.getMonth() + 1 > 10
           ? unixTimestamp.getMonth() + 1
-          : "0" + (unixTimestamp.getMonth() + 1);
+          : "0" + (unixTimestamp.getMonth() + 1)
       let D =
         unixTimestamp.getDate()  > 9
           ? unixTimestamp.getDate() 
-          : "0" + unixTimestamp.getDate();
+          : "0" + unixTimestamp.getDate()
       let h =
         unixTimestamp.getHours() > 9
           ? unixTimestamp.getHours()
-          : "0" + unixTimestamp.getHours();
+          : "0" + unixTimestamp.getHours()
       let m =
         unixTimestamp.getMinutes() > 11
           ? unixTimestamp.getMinutes()
-          : "0" + unixTimestamp.getMinutes();
+          : "0" + unixTimestamp.getMinutes()
       if (D ==timeStamp) {
         // 是否为当天
         if (hour >= 0 && hour < 6) {
@@ -106,28 +105,25 @@ export default {
           return "晚上 " + h + ":" + m;
         }
       } else {
-
         return M + "-" + D + " " + h + ":" + m;
       }
     },
-
-   
   },
-      components:{
-        NullResult
-    }
-};
+  components:{
+    NullResult
+  }
+}
 </script>
-    
-    <style scoped  rel="stylesheet/scss" lang="scss">
+  
+<style scoped  rel="stylesheet/scss" lang="scss">
 .content-middle {
- font-size: 0.17rem;
+  font-size: 0.17rem;
   margin-left: 0;
   margin-right: 0;
- overflow: hidden;
+  overflow: hidden;
   background: rgba(255, 255, 255, 1);
   color: #000;
-    margin-bottom: 0.6rem;
+  margin-bottom: 0.6rem;
   .message-item {
     height: 0.75rem;
     border-radius: 0.04rem;
@@ -138,7 +134,6 @@ export default {
     position: relative;
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
-
     &::after {
       content: "";
       position: absolute;
@@ -149,7 +144,6 @@ export default {
       height: 0.01rem;
       background: rgba(239, 239, 239, 1);
     }
-
     .avatar-img {
       display: inline-block;
       width: 0.54rem;
@@ -166,10 +160,8 @@ export default {
       display: flex;
       flex-direction: column;
       span:nth-of-type(1) {
-   
         color: rgba(51, 51, 51, 1);
         font-size: 0.15rem;
-       
       }
       // span:nth-of-type(2) {
       //   margin-left: 0.1rem;

@@ -12,10 +12,8 @@
               <div class="item-img" v-show="xianshi">
                 <img alt="用户头像" src="../assets/fx_pic_add@2x.png" @click="imgadd" />
               </div>
-
               <div class="item-img" v-for="(item, index) in imageUrl" @click="show(index)">
                 <img class="avatar previewer-demo-img" :src="item.src" />
-
                 <svg
                   class="item-img-icon"
                   aria-hidden="true"
@@ -45,7 +43,6 @@
         </ul>
       </div>
       <div class="content-middle-bottom"></div>
-
       <div class="content-bottom-bottom" @click.stop="insaything">
         <div class="content-bottom-bottoms">发布</div>
       </div>
@@ -64,7 +61,7 @@ import previewer from "components/yulan";
 import { XTextarea, TransferDom } from "vux";
 import { createPicture } from "@/common/js/cookie.js";
 export default {
-    directives: {
+  directives: {
     TransferDom
   },
   data() {
@@ -119,22 +116,21 @@ export default {
       basicOp
         .insaything(form)
         .then(res => {
-               this.$message()
-                  if (res.data.code == "10000") {
-                   	  setTimeout(() => {
-   this.$message("success","发布成功")
-         setTimeout(() => {
-     this.$router.back()
-        this.$route.meta.keepAlive = false;
-            this.information.content = "";
-            this.imageUrl = [];
-      }, 1000)
-      }, 400)
-           
+          this.$message()
+          if (res.data.code == "10000") {
+            setTimeout(() => {
+              this.$message("success","发布成功")
+              setTimeout(() => {
+                this.$router.back()
+                this.$route.meta.keepAlive = false;
+                this.information.content = "";
+                this.imageUrl = [];
+              }, 1000)
+            }, 400) 
           } 
         })
         .catch(res => {
-             this.$message("error","发布失败")
+          this.$message("error","发布失败")
         });
     },
     imgadd() {
@@ -144,12 +140,9 @@ export default {
       let inputDOM = this.$refs.clearFile;
       // 通过DOM元素取文件数据
       this.file = inputDOM.files[0];
-
       let windowURL = window.URL || window.webkitURL;
       let value = windowURL.createObjectURL(this.file);
       this.imageUrl.push(createPicture(value, this.file));
-
-
       this.$refs.clearFile.value = "";
     },
     imgLoad() {
@@ -173,12 +166,9 @@ export default {
       let inputDOM = this.$refs.clearFiles;
       this.file = inputDOM.files[0];
       // 文件对象
-
       this.information.file = this.file;
-    
       let windowURL = window.URL || window.webkitURL;
       let value = windowURL.createObjectURL(this.file);
-
       this.information.img = value;
       this.$refs.clearFiles.value = "";
     },
@@ -188,7 +178,6 @@ export default {
     deletealbum(index, id) {
       this.imageUrl.splice(index, 1);
       this.deleteid.push(id);
-
     }
   },
   components: {
@@ -202,7 +191,7 @@ export default {
       }
     }
   }
-};
+}
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
@@ -222,7 +211,6 @@ export default {
     .content-middle-top {
       margin-top: 0.3rem;
       padding: 0 0.2rem;
-
       .icon {
         width: 0.8rem;
         height: 0.8rem;
@@ -257,7 +245,6 @@ export default {
       .item-a {
         display: flex;
         align-items: center;
-
         width: 3.75rem;
         height: 0.45rem;
         background-color: #ffffff;
@@ -271,11 +258,9 @@ export default {
         .item-input {
           padding: 0 0.1rem;
           font-size: 0.15rem;
-
           height: 0.3rem;
           outline: none;
           border: none;
-
           &::placeholder {
             font-size: 0.16rem;
             color: #8e8e8e;
@@ -283,7 +268,6 @@ export default {
         }
       }
     }
-
     .content-bottom-bottom {
       background: #f7f4fb;
       .content-bottom-bottoms {
@@ -305,7 +289,6 @@ export default {
       padding: 0 0.18rem;
       margin-bottom: 0.1rem;
       border-radius: 0.05rem;
-
       p {
         font-size: 0.17rem;
         color: rgba(0, 0, 0, 1);
@@ -313,7 +296,6 @@ export default {
         font-weight: 500;
         margin-bottom: 0.1rem;
         color: rgba(0, 0, 0, 1);
-
         span {
           width: 0.17rem;
           height: 0.17rem;
@@ -326,13 +308,11 @@ export default {
           border-radius: 50%;
         }
       }
-
       ul {
         li {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-
           span {
             font-size: 0.15rem;
             font-family: PingFang SC;
@@ -340,34 +320,27 @@ export default {
             color: rgba(51, 51, 51, 1);
             display: inline-block;
           }
-
           input {
             margin-top: 0.1rem;
             font-size: 0.15rem;
             height: 0.4rem;
             width: 3.19rem;
             padding-left: 0.18rem;
-
             background: rgba(0, 0, 0, 0.03);
-
             border-radius: 0.05rem;
-
             outline: none;
             color: rgba(51, 51, 51, 1);
-
             &::placeholder {
               font-size: 0.13rem;
               color: #999999;
             }
           }
-
           .hint-information {
             display: flex;
             justify-content: space-between;
             position: relative;
             align-items: center;
             height: 0.45rem;
-
             &::after {
               content: "";
               position: absolute;
@@ -381,7 +354,6 @@ export default {
           }
           .img-adds {
             display: flex;
-
             align-items: center;
             .item-img {
               width: 0.9rem;
@@ -402,7 +374,6 @@ export default {
                 height: 0.2rem;
                 overflow: hidden;
               }
-
               &.active {
                 .item-img-icon {
                   display: block;
@@ -410,23 +381,19 @@ export default {
               }
             }
           }
-
           .img-add {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin: 0.15rem 0;
             margin-bottom: 0.1rem;
-
             img {
               width: 0.9rem;
               height: 0.9rem;
               border-radius: 0.05rem;
             }
-
             ul {
               display: flex;
-
               li {
                 width: 0.4rem;
                 height: 0.28rem;
@@ -435,7 +402,6 @@ export default {
                 font-weight: bold;
                 border: 0.01rem solid rgba(51, 51, 51, 0.2);
               }
-
               li:nth-of-type(1) {
                 font-size: 0.15rem;
                 width: 0.75rem;
@@ -445,7 +411,6 @@ export default {
                 font-family: PingFang SC;
                 font-weight: 500;
               }
-
               li:nth-of-type(3) {
                 border-left: 0;
                 border-right: 0;
@@ -453,7 +418,6 @@ export default {
             }
           }
         }
-
         li:nth-of-type(4) {
           span {
             span {

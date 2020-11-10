@@ -51,7 +51,6 @@
               </div>
             </div>
           </div>
-
           <div
             v-if="item.user_comment"
             class="comment"
@@ -103,13 +102,13 @@ export default {
       opensdf:true,
       seacherMore:true,
       hasMore:true,
-             pullDownRefresh: {
-  threshold: 50,
-  stop: 20
-},
-pullUpLoad: {
-  threshold: 100,
-},
+      pullDownRefresh: {
+        threshold: 50,
+        stop: 20
+      },
+      pullUpLoad: {
+        threshold: 100,
+      },
       currentIndex: 0,
       imageUrl: [
         {
@@ -175,15 +174,15 @@ pullUpLoad: {
       options: {
         getThumbBoundsFn(index) {
           // find thumbnail element
-          let thumbnail = document.querySelectorAll(".actives")[index];
+          let thumbnail = document.querySelectorAll(".actives")[index]
           // get window scroll Y
           let pageYScroll =
-            window.pageYOffset || document.documentElement.scrollTop;
+            window.pageYOffset || document.documentElement.scrollTop
           // optionally get horizontal scroll
           // get position of element relative to viewport
-          let rect = thumbnail.getBoundingClientRect();
+          let rect = thumbnail.getBoundingClientRect()
           // w = width
-          return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+          return { x: rect.left, y: rect.top + pageYScroll, w: rect.width }
           // Good guide on how to get element coordinates:
           // http://javascript.info/tutorial/coordinates
         }
@@ -192,20 +191,20 @@ pullUpLoad: {
   },
   computed: {
     names(){
-      return  store.state.user.username_zy==store.state.user.username ?  "我的动态" : "Ta的动态";
+      return  store.state.user.username_zy==store.state.user.username ?  "我的动态" : "Ta的动态"
     },
     imageUrlok() {
-      return this.imageUrl[0].src == "" ? false : true;
+      return this.imageUrl[0].src == "" ? false : true
     },
     text() {
       return function(arrs) {
         let result = arrs.find(function(item) {
-          return item.c_username === store.state.user.username;
+          return item.c_username === store.state.user.username
         });
         if (result) {
-          return "#iconloves";
+          return "#iconloves"
         } else {
-          return "#iconlove";
+          return "#iconlove"
         }
       };
     },
@@ -213,124 +212,115 @@ pullUpLoad: {
       return this.information.length > 0 ? "已经到底了" : "暂无";
     },
     i_class() {
-      return this.switcher ? "active" : "noactive";
+      return this.switcher ? "active" : "noactive"
     },
     a_class() {
-      return this.switcher ? "noactive" : "active";
+      return this.switcher ? "noactive" : "active"
     },
     iconT() {
       return this.$route.path.indexOf("/recommend") != -1
         ? "#iconlove"
-        : "#iconloves";
+        : "#iconloves"
     },
     xinxiy() {
       return store.state.user.konjian[store.state.user.username_zy];
     }
   },
   created() {
-    this.initData();
+    this.initData()
   },
   methods: {
     scrollToEnd(){
-    
       if(this.seacherMore&&(this.opensdf)){
-
-         ++this.form.page;
-         this.hasMore=true;
-        this.initData();
-        setTimeout(() => {
-              
-               this.$refs.scroll.finishPullUp();
-            }, 300);
-      }
-       
+         ++this.form.page
+         this.hasMore=true
+          this.initData()
+          setTimeout(() => {
+            this.$refs.scroll.finishPullUp()
+          }, 300)
+      }   
     },
-      checkMore(number) {
-        if (number < this.form.size) {
-          this.seacherMore = false;
-        }
-      },
+    checkMore(number) {
+      if (number < this.form.size) {
+        this.seacherMore = false
+      }
+    },
     scrollToTop(){
-  
-      this.form.page=1;
-      this.hasMore=true,
-      this.informations=[];
-      this.initData();
-     setTimeout(() => {
-              this.hasMore=false
-               this.$refs.scroll.finishPullDown();
-            }, 300);
+      this.form.page=1
+      this.hasMore=true
+      this.informations=[]
+      this.initData()
+      setTimeout(() => {
+        this.hasMore=false
+        this.$refs.scroll.finishPullDown()
+      }, 300)
     },
     show(index, imgs, w, h, indexs) {
-      this.imageUrl[0].src = imgs;
-      this.imageUrl[0].w = w;
-      this.imageUrl[0].h = h;
-      this.currentIndex = indexs;
+      this.imageUrl[0].src = imgs
+      this.imageUrl[0].w = w
+      this.imageUrl[0].h = h
+      this.currentIndex = indexs
       setTimeout(() => {
-        this.$refs.previewers.show(index);
-      }, 0);
+        this.$refs.previewers.show(index)
+      }, 0)
     },
     follow(arrs, s_id,username) {
       let result = arrs.findIndex(function(item) {
-        return item.c_username === store.state.user.username;
-      });
-
+        return item.c_username === store.state.user.username
+      })
       if (result >= 0) {
         this.information.forEach(item => {
           if (item.s_id == s_id) {
-         
-            item.likes = item.likes-1;
-            this.websocketsen(s_id, 0);
+            item.likes = item.likes-1
+            this.websocketsen(s_id, 0)
           }
-        });
-        arrs.splice(result, 1);
-        return;
+        })
+        arrs.splice(result, 1)
+        return
       }
       if (result < 0) {
         this.information.forEach(item => {
           if (item.s_id == s_id) {
-            this.sendinformations.s_back=item.imgs;
-            this.sendinformations.s_content=item.content;
+            this.sendinformations.s_back=item.imgs
+            this.sendinformations.s_content=item.content
             this.sendinformations.username_zy=username
-            item.likes = item.likes+1;
-            this.websocketsen(s_id, 1);
+            item.likes = item.likes+1
+            this.websocketsen(s_id, 1)
           }
-        });
-        arrs.unshift(this.favor_is);
+        })
+        arrs.unshift(this.favor_is)
       }
-    
     },
     websocketsends() {
       //数据发送
-
-      this.open_input_comment = !this.open_input_comment;
+      this.open_input_comment = !this.open_input_comment
       this.sendinformation.time = new Date()
         .getTime()
         .toString()
-        .slice(0, -3);
-      this.sendinformation.recontact = this.selectitem;
-      this.sendinformation.s_id = this.open_id;
-      this.sendinformation.content = this.$refs.input.value;
-      this.$refs.input.value = "";
-      this.selectitem = "";
+        .slice(0, -3)
+      this.sendinformation.recontact = this.selectitem
+      this.sendinformation.s_id = this.open_id
+      this.sendinformation.content = this.$refs.input.value
+      this.$refs.input.value = ""
+      this.selectitem = ""
       store.state.user.websock.send(
         JSON.stringify(createComment(this.sendinformation))
       );
       this.$nextTick(() => {
-        this.$refs.scroll.refresh();
-      });
+        this.$refs.scroll.refresh()
+      })
     },
     websocketsen(s_id, content) {
       //数据发送
       this.sendinformations.time = new Date()
         .getTime()
         .toString()
-        .slice(0, -3);
-      this.sendinformations.s_id = s_id;
-      this.sendinformations.content = content;
+        .slice(0, -3)
+      this.sendinformations.s_id = s_id
+      this.sendinformations.content = content
       store.state.user.websock.send(
         JSON.stringify(createComments(this.sendinformations))
-      );
+      )
     },
     websocketclose(e) {
       //关闭
@@ -343,37 +333,37 @@ pullUpLoad: {
       });
     },
     change_open(sid,imgs,content) {
-      this.sendinformation.s_content=content;
-      this.sendinformation.s_back=imgs;
-      this.tishi = "说点什么:";
-      this.open_input_comment = !this.open_input_comment;
-      this.open_id = sid;
-      this.$refs.input.value = "";
+      this.sendinformation.s_content=content
+      this.sendinformation.s_back=imgs
+      this.tishi = "说点什么:"
+      this.open_input_comment = !this.open_input_comment
+      this.open_id = sid
+      this.$refs.input.value = ""
     },
     check(username) {
       if (store.state.user.username == username) {
-        return true;
+        return true
       } else {
-        return false;
+        return false
       }
     },
     change_opens(sid,imgs,content,username,nickNames) {
       if (this.check(username)) {
         return;
       } else {
-        this.sendinformation.nickNames=nickNames;
-        this.sendinformation.s_content=content;
-        this.sendinformation.s_back=imgs;
+        this.sendinformation.nickNames=nickNames
+        this.sendinformation.s_content=content
+        this.sendinformation.s_back=imgs
         
-        this.tishi = "回复" + username + ":";
-        this.open_input_comment = !this.open_input_comment;
-        this.open_id = sid;
-        this.selectitem = username;
-        this.$refs.input.value = "";
+        this.tishi = "回复" + username + ":"
+        this.open_input_comment = !this.open_input_comment
+        this.open_id = sid
+        this.selectitem = username
+        this.$refs.input.value = ""
       }
     },
     back() {
-      this.$router.back();
+      this.$router.back()
     },
     // initData() {
     //   basicOp
@@ -391,109 +381,104 @@ pullUpLoad: {
           
     //     });
     // },
-
-
     initData() {
       basicOp
        .getUserSaything(this.form)
         .then(res => {
           if (res.data.code == "10000") {
-            this.information = res.data.data;
-            this.informations =[...this.informations, ...this.information];
+            this.information = res.data.data
+            this.informations =[...this.informations, ...this.information]
             setTimeout(() => {
-              this.$refs.scroll.refresh();
+              this.$refs.scroll.refresh()
               this.hasMore=false;
               this.checkMore(this.information.length) 
-            }, 40);
+            }, 40)
           }
         })
         .catch(res => {
-          console.log(res);
+          console.log(res)
         });
     },
 
     formatTime(time) {
       let unixtime = time;
-      let Ys = this.today.getFullYear(); //获取年份;
+      let Ys = this.today.getFullYear() //获取年份;
       let timeStamp = this.today
         .getTime()
         .toString()
-        .slice(0, -3);
-      let unixTimestamp = new Date(unixtime * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let hour = unixTimestamp.getHours();
-      let Y = unixTimestamp.getFullYear(); //获取年份
+        .slice(0, -3)
+      let unixTimestamp = new Date(unixtime * 1000) //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let hour = unixTimestamp.getHours()
+      let Y = unixTimestamp.getFullYear() //获取年份
       let M =
         unixTimestamp.getMonth() + 1 > 10
           ? unixTimestamp.getMonth() + 1
-          : "0" + (unixTimestamp.getMonth() + 1);
+          : "0" + (unixTimestamp.getMonth() + 1)
       let D =
         unixTimestamp.getDate() > 10
           ? unixTimestamp.getDate()
-          : "0" + unixTimestamp.getDate();
+          : "0" + unixTimestamp.getDate()
       let h =
         unixTimestamp.getHours() > 10
           ? unixTimestamp.getHours()
-          : "0" + unixTimestamp.getHours();
+          : "0" + unixTimestamp.getHours()
       let m =
         unixTimestamp.getMinutes() + 1 > 10
           ? unixTimestamp.getMinutes()
-          : "0" + unixTimestamp.getMinutes();
+          : "0" + unixTimestamp.getMinutes()
       if (timeStamp - unixtime < 86400) {
         // 是否为当天
         if (hour >= 0 && hour < 6) {
-          return "凌晨 " + h + ":" + m;
+          return "凌晨 " + h + ":" + m
         }
         if (hour >= 6 && hour < 12) {
-          return "早上 " + h + ":" + m;
+          return "早上 " + h + ":" + m
         }
         if (hour === 12) {
-          return "中午 " + h + ":" + m;
+          return "中午 " + h + ":" + m
         }
         if (hour > 12 && hour < 18) {
-          return "下午 " + h + ":" + m;
+          return "下午 " + h + ":" + m
         }
         if (hour >= 18 < hour < 24) {
-          return "晚上 " + h + ":" + m;
+          return "晚上 " + h + ":" + m
         }
       }
 
-      return M + "-" + D + " " + h + ":" + m;
+      return M + "-" + D + " " + h + ":" + m
     }
   },
   watch: {
     xinxiy: {
       handler(newValue, oldValue) {
         this.information.some((item, i) => {
-     
           // if (item.s_id == newValue[newValue.length - 1].S_Id&&(newValue[newValue.length - 1].type!="comments_send")) {
           //   item.comments=item.comments+1;
-          //   item.user_comment.push(newValue[newValue.length - 1]);
+          //   item.user_comment.push(newValue[newValue.length - 1])
           //   return true;
           // }
-           if(newValue[newValue.length - 1].type!="comments_send"){
+          if (newValue[newValue.length - 1].type!="comments_send") {
             item.comments=item.comments+1;
-            item.user_comment.push(newValue[newValue.length - 1]);
-            return true;
-            }
-
-           
-            else if(!item.user_comments.find(function(item){
-     return item==newValue[newValue.length - 1].c_username
- })){
-              item.likes=item.likes+1;
-            }
-        });
+            item.user_comment.push(newValue[newValue.length - 1])
+            return true
+          }
+          else if(!item.user_comments.find(function(item) {
+            return item==newValue[newValue.length - 1].c_username
+          })){
+            item.likes=item.likes+1
+          }
+        })
       }
     },
     $route(to, from) {                                                       
       if (from.meta.keepAlive == false && from.path == "/publishpage"&& to.path==`/zhuye/${store.state.user.username_zy}`) {
-        this.opensdf=false;
-        this.scrollToTop();
-        from.meta.keepAlive = true;
-        this.opensdf=false;
+        this.opensdf=false
+        this.scrollToTop()
+        from.meta.keepAlive = true
+        this.opensdf=false
           setTimeout(() => {
-       this.opensdf=true;
-      }, 500);
+       this.opensdf=true
+      }, 500)
       }
     }
   },
@@ -584,7 +569,6 @@ pullUpLoad: {
           }
         }
       }
-
       .youquan_a_middle {
         word-break: break-all;
         font-size: 0.16rem;
@@ -603,7 +587,6 @@ pullUpLoad: {
         height: 0.4rem;
         border-top: 0.01rem solid rgba(236, 236, 236, 1);
         border-bottom: 0.01rem solid rgba(236, 236, 236, 1);
-
         .control {
           display: flex;
           width: 1rem;
@@ -612,7 +595,6 @@ pullUpLoad: {
             align-items: center;
             margin: 0 0.1rem;
             color: #3f3f3f;
-
             .icon {
               width: 0.2rem;
               height: 0.2rem;
@@ -640,7 +622,6 @@ pullUpLoad: {
   overflow: hidden;
   margin-top: 0.5rem;
 }
-
 .input_comment {
   z-index: 1006;
   border-top: 0.01rem solid rgba(236, 236, 236, 1);
@@ -661,14 +642,12 @@ pullUpLoad: {
     justify-content: center;
     width: 0.85rem;
     height: 0.45rem;
-
     .icon {
       width: 0.3rem;
       height: 0.3rem;
       overflow: hidden;
     }
   }
-
   .sendin {
     flex: 1 1 0;
     height: 0.45rem;
@@ -676,7 +655,6 @@ pullUpLoad: {
     align-items: center;
     font-size: 0.15rem;
     background: #f4f2f3;
-
     input {
       outline: none;
       margin: 0 0.1rem;
@@ -684,7 +662,6 @@ pullUpLoad: {
       height: 0.4rem;
       width: 100%;
       font-size: 0.15rem;
-
       &::placeholder {
         font-size: 0.15rem;
         color: rgba(170, 170, 170, 1);

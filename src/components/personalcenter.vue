@@ -1,7 +1,6 @@
 <template>
   <div class="personalcenter">
     <div class="backGround"></div>
-
     <div class="sad">
       <div class="top">
         <div class="photograph">
@@ -35,7 +34,6 @@
         </div>
       </div>
     </div>
-
     <ul class="user-function">
       <li @click.stop="mysaything">
         我的动态
@@ -54,7 +52,6 @@
       </li>
       <li class="user-function-logut" @click="logOut">退出</li>
     </ul>
-
     <realname ref="realname" @confirm="confirm" ></realname>
   </div>
 </template>
@@ -67,16 +64,14 @@ export default {
   data() {
     return {
       information:{
-
       },
       information_copy:{
-
       },
       item:{
-img: "http://xianqing.com/ddadaw/public/uploads/bd23467b267e0e68f4a1ba948957981.png",
-nickName: "客服",
-recontact: "0001",
-username: store.state.user.username
+        img: "http://xianqing.com/ddadaw/public/uploads/bd23467b267e0e68f4a1ba948957981.png",
+        nickName: "客服",
+        recontact: "0001",
+        username: store.state.user.username
       },
       songReady: false
     };
@@ -85,13 +80,12 @@ username: store.state.user.username
     this.initData();
   },
   methods: {
-selectItemop() {
-   store.commit('SET_USERNAMEZY',this.information.username);
-          this.$router.push({
-          path: `/zhuye`
-        }).catch(err => {})
-        
-       },
+    selectItemop() {
+      store.commit('SET_USERNAMEZY',this.information.username);
+        this.$router.push({
+        path: `/zhuye`
+      }).catch(err => {}) 
+    },
     initData() {
       basicOp
         .initDate()
@@ -107,25 +101,24 @@ selectItemop() {
     intofo() {
       this.$router.push("/recommend/mature");
     },
-    mysaything(){
+    mysaything() {
       store.commit('SET_USERNAMEZY',store.state.user.username);
       setTimeout(() => {
-             this.$router.push({
-        path: `/zhuye/${store.state.user.username}`
-      });
+        this.$router.push({
+          path: `/zhuye/${store.state.user.username}`
+        });
       }, 10)
-     
     },
-    gotoCS(){
+    gotoCS() {
       store.commit("SET_CHAT", this.item);
-           this.$router.push({
-          path: `/message/${this.item.recontact}`
-        })
+      this.$router.push({
+        path: `/message/${this.item.recontact}`
+      })
     },
     intoth() {
       this.$router.push("/Faxian");
     },
-    confirm(){
+    confirm() {
       this.$router.push("/realnamepage");
     },
     bianji() {
@@ -135,7 +128,7 @@ selectItemop() {
       this.$router.back();
     },
     showrealname() {
-        this.$refs.realname.show()
+      this.$refs.realname.show()
     },
     logOut() {
       store.dispatch("LogOut").then(() => {
@@ -163,7 +156,6 @@ selectItemop() {
   width: 100%;
   height: 2.43rem;
   background-image: url("../assets/mine_pic_bg.png");
-
 }
 .sad {
   margin: 0 0.2rem;
@@ -184,7 +176,6 @@ selectItemop() {
       height: 1.2rem;
       border-radius: 50%;
       border: 0.04rem solid #ffffff;
-
       img {
         border-radius: 50%;
         width: 100%;
@@ -205,7 +196,6 @@ selectItemop() {
       text-align: center;
       line-height: 0.3rem;
     }
-
     .user {
       position: absolute;
       top: 55%;
@@ -220,10 +210,9 @@ selectItemop() {
       .name {
         font-weight: bold;
         font-size: 0.2rem;
-        
         overflow: hidden;
-                white-space:nowrap; 
-                text-overflow:ellipsis;
+        white-space:nowrap; 
+        text-overflow:ellipsis;
       }
       .id {
         color: rgba(170, 170, 170, 1);
@@ -243,7 +232,6 @@ selectItemop() {
     height: 0.8rem;
     display: flex;
     align-items: center;
-
     .item {
       flex: 1 1 0;
       display: flex;
@@ -260,7 +248,6 @@ selectItemop() {
     }
   }
 }
-
 ul {
   margin: 0 0.2rem;
   margin-top: 0.1rem;

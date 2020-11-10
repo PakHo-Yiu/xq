@@ -74,7 +74,6 @@ export default {
   bottom: 0;
   z-index: 998;
   background-color: rgba(0, 0, 0, 0.3);
-
   &.confirm-fade-enter-active {
     animation: confirm-fadein 0.3s;
     .confirm-content {
@@ -93,7 +92,6 @@ export default {
       background-color: #ffffff;
       border-radius: 0.12rem;
       display: flex;
-
       align-items: center;
       flex-direction: column;
       .confirm-content-top {
@@ -104,12 +102,10 @@ export default {
         flex-direction: column;
         .p_text {
           line-height: 0.63rem;
-
           font-family: MicrosoftYaHei;
           font-size: 0.21rem;
           font-weight: normal;
           font-stretch: normal;
-
           letter-spacing: 0rem;
           color: #000000;
         }
@@ -129,7 +125,6 @@ export default {
           display: flex;
           align-items: center;
           justify-content: center;
-
           height: 0.5rem;
         }
         .workday-item-step {
@@ -140,7 +135,6 @@ export default {
           margin-bottom: 0.1rem;
           position: relative;
           padding: 0 0.15rem;
-
           li {
             height: 0.5rem;
             width: 0.9rem;
@@ -149,14 +143,12 @@ export default {
             flex: 1 1 0;
             flex-direction: column;
             align-items: center;
-
             font-family: PingFang-SC-Bold;
             font-size: 0.14rem;
             font-weight: normal;
             font-stretch: normal;
             letter-spacing: 0rem;
             color: #19b3ea;
-            
             span {
               z-index: 99;
               border-radius: 50%;
@@ -189,7 +181,6 @@ export default {
           }
         }
       }
-
       .operate {
         display: flex;
         align-items: center;

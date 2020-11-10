@@ -44,24 +44,24 @@ export default {
     setTimeout(() => {
       this.loading = false;
       this.$nextTick(() => {
-        this.$refs.scroll.refreshs();
+        this.$refs.scroll.refreshs()
       });
     }, 400);
   },
   computed: {
     t_title() {
-      return store.state.user.chat.nickName;
+      return store.state.user.chat.nickName
     },
     bgImage() {
-      return store.state.user.chat.img;
+      return store.state.user.chat.img
     },
     xinxiy() {
-      return store.state.user.xinxi[store.state.user.chat.recontact];
+      return store.state.user.xinxi[store.state.user.chat.recontact]
     }
   },
   beforeDestroy() {
     setTimeout(() => {
-      this.setnewmessage();
+      this.setnewmessage()
     }, 0);
   },
   data() {
@@ -110,51 +110,50 @@ export default {
   },
   methods: {
     formatTime(time) {
-      let unixtime = time;
-      let Ys = this.today.getFullYear(); //获取年份;
-
+      let unixtime = time
+      let Ys = this.today.getFullYear() //获取年份;
       let timeStamp =
-        this.today.getDate() > 9
-          ? this.today.getDate()
-          : "0" + this.today.getDate();
-      let unixTimestamp = new Date(unixtime * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
-      let hour = unixTimestamp.getHours();
-      let Y = unixTimestamp.getFullYear(); //获取年份
+      this.today.getDate() > 9
+        ? this.today.getDate()
+        : "0" + this.today.getDate()
+      let unixTimestamp = new Date(unixtime * 1000) //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let hour = unixTimestamp.getHours()
+      let Y = unixTimestamp.getFullYear() //获取年份
       let M =
         unixTimestamp.getMonth() + 1 > 10
           ? unixTimestamp.getMonth() + 1
-          : "0" + (unixTimestamp.getMonth() + 1);
+          : "0" + (unixTimestamp.getMonth() + 1)
       let D =
         unixTimestamp.getDate() > 10
           ? unixTimestamp.getDate()
-          : "0" + unixTimestamp.getDate();
+          : "0" + unixTimestamp.getDate()
       let h =
         unixTimestamp.getHours() > 10
           ? unixTimestamp.getHours()
-          : "0" + (unixTimestamp.getHours() + 1);
+          : "0" + (unixTimestamp.getHours() + 1)
       let m =
         unixTimestamp.getMinutes() > 10
           ? unixTimestamp.getMinutes()
-          : "0" + unixTimestamp.getMinutes();
+          : "0" + unixTimestamp.getMinutes()
       if (D == timeStamp) {
         // 是否为当天
         if (hour >= 0 && hour < 6) {
-          return "凌晨 " + h + ":" + m;
+          return "凌晨 " + h + ":" + m
         }
         if (hour >= 6 && hour < 12) {
-          return "早上 " + h + ":" + m;
+          return "早上 " + h + ":" + m
         }
         if (hour === 12) {
-          return "中午 " + h + ":" + m;
+          return "中午 " + h + ":" + m
         }
         if (hour > 12 && hour < 18) {
-          return "下午 " + h + ":" + m;
+          return "下午 " + h + ":" + m
         }
         if (hour >= 18 < hour < 24) {
-          return "晚上 " + h + ":" + m;
+          return "晚上 " + h + ":" + m
         }
       } else {
-        return M + "-" + D + " " + h + ":" + m;
+        return M + "-" + D + " " + h + ":" + m
       }
     },
     // initData() {
@@ -175,87 +174,84 @@ export default {
     //     });
     // },
     back() {
-      this.$router.back();
+      this.$router.back()
     },
     positionBtn(rowPosition) {
       if (rowPosition === "send") {
-        return "avatar-img-own";
+        return "avatar-img-own"
       } else if (rowPosition === "receive") {
-        return "avatar-img";
+        return "avatar-img"
       }
     },
     positionBtns(rowPosition) {
       if (rowPosition === "send") {
-        return "message-item-own";
+        return "message-item-own"
       } else if (rowPosition === "receive") {
-        return "message-item";
+        return "message-item"
       }
     },
     isoverfive(times) {
- 
       if (Number(times) - this.message_time >= 30) {
-        this.message_time = Number(times);
-        return true;
+        this.message_time = Number(times)
+        return true
       } else {
-        return false;
+        return false
       }
     },
     setnewmessage() {
       basicOp
         .setnewmessage(this.sendinformation)
         .then(res => {})
-        .catch(res => {});
+        .catch(res => {})
     },
     websocketsends() {
       //数据发送
       this.sendinformation.time = new Date()
         .getTime()
         .toString()
-        .slice(0, -3);
+        .slice(0, -3)
       this.sendinformation.opentime = this.opentime(
-        this.sendinformation.time);
-      this.sendinformation.content = this.$refs.input.value;
-      store.state.user.websock.send(JSON.stringify(this.sendinformation));
-      createMessage(this.sendinformation);
-      this.$refs.input.value = "";
+        this.sendinformation.time)
+      this.sendinformation.content = this.$refs.input.value
+      store.state.user.websock.send(JSON.stringify(this.sendinformation))
+      createMessage(this.sendinformation)
+      this.$refs.input.value = ""
     },
     // 小于一分钟不显示
     opentime(time) {
       if(!this.xinxiy){
-        return 1;
+        return 1
       }
       if (time - this.xinxiy[this.xinxiy.length-1].time > 60) {
-        return 1;
-      } else return 0;
+        return 1
+      } else return 0
     },
     selectItemop(username) {
-      store.commit("SET_USERNAMEZY", username);
+      store.commit("SET_USERNAMEZY", username)
       this.$router
         .push({
           path: `/zhuye`
         })
-        .catch(err => {});
+        .catch(err => {})
     }
   },
-
   filters: {},
   watch: {
     xinxiy: {
       handler(newValue, oldValue) {
         //当词条改变时执行事件
         this.$nextTick(() => {
-          this.$refs.scroll.refreshs();
-        });
+          this.$refs.scroll.refreshs()
+        })
       }
     }
   },
-
   components: {
     ContentTop,
     Scroll,
     Loading
   }
-};
+}
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
@@ -267,17 +263,14 @@ export default {
   bottom: 0;
   right: 0;
   background: #ffffff;
-
   .content-middle {
     margin-top: 0.1rem;
-
     p {
       font-size: 0.11rem;
       margin-bottom: 0.15rem;
       text-align: center;
       color: rgba(170, 170, 170, 1);
     }
-
     .message {
       padding: 0 0.1rem;
       .avatar-img {
@@ -285,27 +278,23 @@ export default {
         width: 0.5rem;
         float: left;
         height: 0.5rem;
-
         img {
           width: 100%;
           height: 100%;
           border-radius: 50%;
         }
       }
-
       .avatar-img-own {
         display: inline-block;
         width: 0.5rem;
         float: right;
         height: 0.5rem;
-
         img {
           width: 100%;
           height: 100%;
           border-radius: 50%;
         }
       }
-
       .message-item-own {
         float: right;
         padding: 0.1rem;
@@ -318,7 +307,6 @@ export default {
         margin-bottom: 0.2rem;
         color: #ffffff;
       }
-
       .message-item {
         float: left;
         padding: 0.1rem;
@@ -332,13 +320,11 @@ export default {
       }
     }
   }
-
   .content-bottom {
     position: fixed;
     bottom: 0;
     display: flex;
     width: 100%;
-
     .send {
       flex: 0 0 0.85rem;
       display: flex;
@@ -347,14 +333,12 @@ export default {
       justify-content: center;
       width: 0.85rem;
       height: 0.45rem;
-
       .icon {
         width: 0.3rem;
         height: 0.3rem;
         overflow: hidden;
       }
     }
-
     .sendin {
       flex: 1 1 0;
       height: 0.45rem;
@@ -362,7 +346,6 @@ export default {
       align-items: center;
       font-size: 0.15rem;
       background: #f4f2f3;
-
       input {
         outline: none;
         margin: 0 0.1rem;
@@ -370,7 +353,6 @@ export default {
         height: 0.4rem;
         width: 100%;
         font-size: 0.15rem;
-
         &::placeholder {
           font-size: 0.15rem;
           color: rgba(170, 170, 170, 1);
@@ -379,7 +361,6 @@ export default {
     }
   }
 }
-
 .list {
   height: 5.5rem;
   overflow: hidden;

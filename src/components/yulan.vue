@@ -175,9 +175,9 @@ export default {
 </script>
 <style>
 i {
-			font-size: 0.25rem;
-			width: 0.25rem;
-			height: 0.25rem;
-		}</style>
+	font-size: 0.25rem;
+	width: 0.25rem;
+	height: 0.25rem;
+}</style>
 <style src="x-photoswipe/dist/photoswipe.css"></style>
 <style src="x-photoswipe/dist/default-skin/default-skin.css"></style>

@@ -17,7 +17,6 @@ export const deletes = {
       //滑动开始
       gtouchstart(event) {
         // 记录初始位置
-  
         this.start_x = event.changedTouches[0].clientX;
       },
       //滑动结束

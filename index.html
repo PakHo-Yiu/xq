@@ -4,29 +4,28 @@
     <meta charset="utf-8">
     <meta name="full-screen" content="true">
     <meta name="viewport"
-          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
     <title>相亲平台</title>
     <link href="#" rel="shortcut icon">
   </head>
   <body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-
     <script type="text/javascript">
-        document.documentElement.style.fontSize = document.body.clientWidth / 390*100 + 'px';
+      document.documentElement.style.fontSize = document.body.clientWidth / 375*100 + 'px';
     </script>
     <script>
+      font();
+      window.onresize = function () {
         font();
-        window.onresize = function () {
-            font();
-        }
-        function font() {
-            var width = document.documentElement.clientWidth || document.body.clientWidth;
-            var pageWidth = 375;
-            var baseVal = 100;
-            var fz = width * baseVal / pageWidth;
-            document.querySelector('html').style.fontSize = fz + "px";
-        }
+      }
+      function font() {
+        var width = document.documentElement.clientWidth || document.body.clientWidth;
+        var pageWidth = 375;
+        var baseVal = 100;
+        var fz = width * baseVal / pageWidth;
+        document.querySelector('html').style.fontSize = fz + "px";
+      }
     </script>
   </body>
 </html>

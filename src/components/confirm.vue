@@ -63,7 +63,6 @@ export default {
     bottom: 0;
     z-index: 998;
     background-color: rgba(0, 0, 0, 0.3);
-
     &.confirm-fade-enter-active{
       animation: confirm-fadein 0.3s;
       .confirm-content{
@@ -98,10 +97,9 @@ export default {
             padding: 0.1rem 0;
             border-top: 0.01rem solid rgba(0, 0, 0, 0.3);
              color:#FFBE5D;
-     
             &.left{
               border-right: 0.01rem solid rgba(0, 0, 0, 0.3);
-                         color:#000000;
+               color:#000000;
             }
           }
         }

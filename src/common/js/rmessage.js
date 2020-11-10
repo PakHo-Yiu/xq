@@ -7,7 +7,6 @@ export default class Rmessage {
       this.nickName=nickName
     }
   }
-
   export function createRmessage(Data) {
      return  new Rmessage({          
         username : Data.newusername,

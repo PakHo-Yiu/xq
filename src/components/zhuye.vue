@@ -4,7 +4,6 @@
     <div class="zhuye-backGround">
       <img alt="用户头像" :src="this.information.img" />
     </div>
-
     <div class="zhuye-sad">
       <div class="user">
         <div class="name">
@@ -13,13 +12,11 @@
             <use :xlink:href="iconT" />
           </svg>
         </div>
-
         <div class="id">
           <span>21岁</span>
           <span>{{this.information.height[0]}}</span>
           <span>{{this.information.occupation}}</span>
           <span>{{this.information.income[0]}}</span>
-
           <x-address
             title
             v-model="information.address[0]"
@@ -30,7 +27,6 @@
         </div>
       </div>
     </div>
-
     <div class="zhuye-bottom" v-if="isshow">
       <div class="zhuye-bottom-item" @click.stop="follow">
         <svg class="icon-message" aria-hidden="true">
@@ -57,7 +53,6 @@
             <use xlink:href="#icongengduo" />
           </svg>
         </li>
-
         <li class="user-fujia-ul-lis">
           <div class="user-fujia-ul-lis-span">生活相册</div>
           <div class="img-adds">
@@ -76,17 +71,14 @@
         </li>
       </ul>
     </div>
- <router-view>
-      <!-- 这里是不被缓存的视图组件，比如 Edit！ -->
+    <router-view>
+      <!-- 这里是不被缓存的视图组件 -->
     </router-view>
     <div v-transfer-dom v-if="information.imageUrl">
       <previewer :list="information.imageUrl" ref="previewer" :options="options"></previewer>
-    </div>
-
-   
-     <loading :show="loading" text=""></loading>
+    </div> 
+    <loading :show="loading" text=""></loading>
   </div>
-  
 </template>
 
 <script>
@@ -111,30 +103,29 @@ export default {
     TransferDom
   },
   updated(){
- setTimeout(() => {
-    this.loading=false;
+    setTimeout(() => {
+      this.loading=false;
     }, 400)
   },
   data() {
     return {
-       loading:false,
-       result:false,
-                 forms: {
-          username: store.state.user.username_zy,
-        },
-         information: {
-
-img:"",
-nickName:"",
-sex: "",
-username: "",
-          username:"",
-          height:[],
-          birthday:"",
-          occupation:"",
-          address: [],
-          income:[]
-        },
+      loading:false,
+      result:false,
+      forms: {
+        username: store.state.user.username_zy,
+      },
+      information: {
+        img:"",
+        nickName:"",
+        sex: "",
+        username: "",
+        username:"",
+        height:[],
+        birthday:"",
+        occupation:"",
+        address: [],
+        income:[]
+      },
       xinxi: {
         t_home: true,
         t_more: true,
@@ -145,9 +136,7 @@ username: "",
       options: {
         getThumbBoundsFn(index) {
           // find thumbnail element
-          let thumbnail = document.querySelectorAll(".previewer-demo-img")[
-            index
-          ];
+          let thumbnail = document.querySelectorAll(".previewer-demo-img")[index];
           // get window scroll Y
           let pageYScroll =
             window.pageYOffset || document.documentElement.scrollTop;
@@ -164,30 +153,29 @@ username: "",
   },
   created() {
     this._getList()
-    
   },
   computed: {
     iconT() {
       return this.information.sex != 1 ? "#iconxingbie-nv" : "#iconxingbie-nan";
     },
-     username_zy(){
-        return store.state.user.username_zy
-      },
-      attention_list(){
-        return store.state.user.attention_list
-      },
-      isshow(){
-         return store.state.user.username_zy ==store.state.user.username ? false :true;
-       },
-        iconF() {
+    username_zy() {
+      return store.state.user.username_zy
+    },
+    attention_list() {
+      return store.state.user.attention_list
+    },
+    isshow() {
+      return store.state.user.username_zy ==store.state.user.username ? false :true;
+    },
+    iconF() {
       return function(username) {
-    this.result = store.state.user.attention_list.find(function(item){
-    return item.username ===username;
-  })
-  if(this.result){
-    return "#icontuijian"
-  }
-    return "#icontuijian2"
+        this.result = store.state.user.attention_list.find(function(item){
+          return item.username ===username;
+        })
+        if(this.result){
+          return "#icontuijian"
+        }
+        return "#icontuijian2"
       }
     },
   },
@@ -199,9 +187,9 @@ username: "",
       this.$router.back();
     },
     selectItem() {
-     this.information.newusername=store.state.user.username
+      this.information.newusername=store.state.user.username
       store.dispatch('Newrmessage',this.information)
-       clearzero(store.state.user.username_zy);
+      clearzero(store.state.user.username_zy);
       this.$router.push({
         path: `/message/${store.state.user.username_zy}`
       });
@@ -227,54 +215,43 @@ username: "",
         this.$router.push("/login");
       });
     },
-          _getList() {
-         basicOp.getUserByUserName(this.forms).then(res => {
-                 this.information=res.data.data;
-                }).catch(res => {
-                  console.log(res)
-                })
-      },
+    _getList() {
+      basicOp.getUserByUserName(this.forms).then(res => {
+        this.information=res.data.data;
+      }).catch(res => {
+        console.log(res)
+      })
+    },
   },
   components: {
     ContentTop,
     previewer,
     Group,
-Loading,
+    Loading,
     XAddress
   },
-     watch: {
-        username_zy: {
-            handler(newValue,oldValue){  //当词条改变时执行事件
-            // this.iconF="#icontuijian2";
-            // this.iconF=iconFis(this.information.username);
-             this.forms.username=newValue;
-            
-             this.loading=true;
-             this._getList();
-             
-              
-             if(newValue === store.state.user.username){
-                  this.$refs.zhuye.style.marginBottom = '0rem' ;
-             }
-             else if(newValue != store.state.user.username){
-               this.$refs.zhuye.style.marginBottom = '0.6rem' 
-             }
-
-            }
-        },
-      //   attention_list:{
-      //     handler(newValue,oldValue){  //当词条改变时执行事件
-            
-      //       }
-			// }
-        
-       }
+  watch: {
+    username_zy: {
+      handler(newValue,oldValue){  //当词条改变时执行事件
+      // this.iconF="#icontuijian2";
+      // this.iconF=iconFis(this.information.username);
+        this.forms.username=newValue;   
+        this.loading=true;
+        this._getList();
+        if(newValue === store.state.user.username){
+          this.$refs.zhuye.style.marginBottom = '0rem' ;
+        }
+        else if(newValue != store.state.user.username){
+          this.$refs.zhuye.style.marginBottom = '0.6rem' 
+        }
+      }
+    },
+  }
 };
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
 .zhuye {
-
   z-index: 102;
   background: #ffffff;
 }
@@ -287,7 +264,6 @@ Loading,
     height: 100%;
   }
 }
-
 .zhuye-sad {
   margin: 0 0.2rem;
   min-height: 0.7rem;
@@ -326,7 +302,6 @@ Loading,
     //        background-color:rgba(239,239,239,1);
     //      }
   }
-
   .jutixinxi {
     display: flex;
     flex-wrap: wrap;
@@ -339,13 +314,11 @@ Loading,
       font-size: 0.15rem;
       color: rgba(0, 0, 0, 1);
       display: flex;
-
       justify-content: space-between;
       margin-bottom: 0.07rem;
     }
   }
 }
-
 .zhuye-bottom {
   z-index: 101;
   height: 0.6rem;
@@ -358,7 +331,6 @@ Loading,
   border-top: 0.01rem solid rgba(236, 236, 236, 1);
   background: #ffffff;
   bottom: 0;
-
   position: fixed;
   .zhuye-bottom-item {
     flex: 1 1 0;
@@ -372,7 +344,6 @@ Loading,
     background: rgba(236, 236, 236, 1);
   }
 }
-
 .icon {
   width: 0.15rem;
   height: 0.15rem;
@@ -389,7 +360,6 @@ Loading,
   overflow: hidden;
   margin-right: 0.05rem;
 }
-
 .user-fujia-ul {
   .user-fujia-ul-li {
     padding: 0 0.16rem;
@@ -397,7 +367,6 @@ Loading,
     background: rgba(255, 255, 255, 1);
     box-sizing: border-box;
     border-top: 0.005rem solid rgba(220, 220, 220, 1);
-
     font-size: 0.15rem;
     color: rgba(0, 0, 0, 1);
     display: flex;
@@ -406,16 +375,13 @@ Loading,
   }
   .user-fujia-ul-lis {
     padding: 0 0.16rem;
-
     background: rgba(255, 255, 255, 1);
     box-sizing: border-box;
     border-top: 0.005rem solid rgba(220, 220, 220, 1);
-
     font-size: 0.15rem;
     color: rgba(0, 0, 0, 1);
     display: flex;
     flex-direction: column;
-
     justify-content: space-between;
     .user-fujia-ul-lis-span {
       height: 0.4rem;
@@ -425,7 +391,6 @@ Loading,
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       .avatar {
         width: 0.9rem;
         height: 0.9rem;

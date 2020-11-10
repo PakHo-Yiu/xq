@@ -29,125 +29,119 @@
 </template>
 
 <script>
-    import { basicOp } from '@/api/index.js'
-    import store from '../store'
-    import {saveUser} from '@/common/js/storage.js'
-  export default {
-    data() {
-      return {
-        reload:true,
-        switcher: true,
-        repassword: '',
-        form: {
-          username: '',
-          password: ''
-        },
-        forms: {
-          username: '',
-          password: '',
-        },
-        
-      }
+import { basicOp } from '@/api/index.js'
+import store from '../store'
+import {saveUser} from '@/common/js/storage.js'
+export default {
+  data() {
+    return {
+      reload:true,
+      switcher: true,
+      repassword: '',
+      form: {
+        username: '',
+        password: ''
+      },
+      forms: {
+        username: '',
+        password: '',
+      }, 
+    }
+  },
+  computed: {
+    i_class() {
+      return this.switcher ? 'active' : 'noactive'
     },
-    computed: {
-      i_class() {
-        return this.switcher ? 'active' : 'noactive'
-      },
-      a_class() {
-        return this.switcher ? 'noactive' : 'active'
-      }
+    a_class() {
+      return this.switcher ? 'noactive' : 'active'
+    }
+  },
+  methods: {
+    back() {
+      this.$router.back()
     },
-    methods: {
-      back() {
-        this.$router.back()
-      },
-      fanc() {
-        this.switcher = true;
-      },
-      fanb() {
-        this.switcher = false;
-      },
-      blur(e){
-        if (e.currentTarget.value === '' ) {
-            e.currentTarget.className="error_message"
-            e.currentTarget.placeholder=e.currentTarget.name+"不能为空";
-          } 
-      },
-      focus(e){
-        e.currentTarget.className="";
-        e.currentTarget.placeholder="请输入"+e.currentTarget.name;
-      },
-      blurs(e){
-        if (e.currentTarget.value === '' ) {
-            e.currentTarget.className="error_message"
-            e.currentTarget.placeholder=e.currentTarget.name+"不能为空";
-            return
-          } 
-           if (e.currentTarget.value != this.forms.password ) {
-            e.currentTarget.className="error_message"
-            e.currentTarget.nextElementSibling.className="p_class"
-             return
-          } 
-      },
-      focuss(e){
-        e.currentTarget.className="";
-        e.currentTarget.placeholder="再次输入密码"
-      },
-      click_transtion(e){
-        e.currentTarget.className="p_class_clear";
-        this.$refs.repassword.focus();
-      },
-      submit () {
-                if (this.form.username === '' || this.form.password  === '') {
-                    return;
-                }
-                 this.$message();
-                basicOp.login(this.form).then(res => {
-                  if (res.data.code == "10000") {
-                     this.$message("success","登录成功")
-                    store.dispatch('LoginByUsername',res.data.data.userToken);
-                    store.commit('SET_USERNAME',this.form.username);
-                   saveUser(res.data.data.userdata);
-                    store.dispatch('SET_WEBSOCKETS').then(() => {
+    fanc() {
+      this.switcher = true
+    },
+    fanb() {
+      this.switcher = false
+    },
+    blur(e) {
+      if (e.currentTarget.value === '' ) {
+        e.currentTarget.className="error_message"
+        e.currentTarget.placeholder=e.currentTarget.name+"不能为空"
+      } 
+    },
+    focus(e) {
+      e.currentTarget.className="";
+      e.currentTarget.placeholder="请输入"+e.currentTarget.name
+    },
+    blurs(e) {
+      if (e.currentTarget.value === '' ) {
+        e.currentTarget.className="error_message"
+        e.currentTarget.placeholder=e.currentTarget.name+"不能为空"
+        return
+      } 
+      if (e.currentTarget.value != this.forms.password ) {
+        e.currentTarget.className="error_message"
+        e.currentTarget.nextElementSibling.className="p_class"
+        return
+      } 
+    },
+    focuss(e) {
+      e.currentTarget.className="";
+      e.currentTarget.placeholder="再次输入密码"
+    },
+    click_transtion(e) {
+      e.currentTarget.className="p_class_clear"
+      this.$refs.repassword.focus();
+    },
+    submit () {
+      if (this.form.username === '' || this.form.password  === '') {
+        return;
+      }
+      this.$message();
+      basicOp.login(this.form).then(res => {
+        if (res.data.code == "10000") {
+          this.$message("success","登录成功")
+          store.dispatch('LoginByUsername',res.data.data.userToken);
+          store.commit('SET_USERNAME',this.form.username);
+          saveUser(res.data.data.userdata);
+          store.dispatch('SET_WEBSOCKETS').then(() => {
           });
-                    this.$router.push('/recommend');
-                    }
-                    else {
-                     this.$message("error","登录失败")
-                    }      
-                }).catch(res => {
-                   this.$message("error","账号或密码错误")
-                })
-            },
-            register () {
-                if (this.forms.username === '' || this.forms.password  === '' || this.forms.repassword  === '') {
-                    return;
-                }
-                 if (this.forms.password !==this.repassword) {
-                    return;
-                }
-                   this.$message();
-                basicOp.register(this.forms).then(res => {
-                  if (res.data.code == "10000") {
-                        this.$message("success","注册成功")
-                    store.dispatch('LoginByUsername',res.data.data.userToken);
-                   this.switcher=true;
-                   this.reload=false;
-                   setTimeout(() =>{
-                     this.reload=true;
-                   },100)
-
-                
-
-
-                    }
-                }).catch(res => {
-                 this.$message("error","用户名已注册")
-                })
-            },
+          this.$router.push('/recommend');
+        }
+        else {
+          this.$message("error","登录失败")
+        }      
+      }).catch(res => {
+        this.$message("error","账号或密码错误")
+      })
     },
-  }
-
+    register () {
+      if (this.forms.username === '' || this.forms.password  === '' || this.forms.repassword  === '') {
+        return;
+      }
+      if (this.forms.password !==this.repassword) {
+        return;
+      }
+      this.$message();
+      basicOp.register(this.forms).then(res => {
+        if (res.data.code == "10000") {
+          this.$message("success","注册成功")
+          store.dispatch('LoginByUsername',res.data.data.userToken);
+          this.switcher=true;
+          this.reload=false;
+          setTimeout(() =>{
+            this.reload=true;
+          },100)
+        }
+      }).catch(res => {
+        this.$message("error","用户名已注册")
+      })
+    },
+  },
+}
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
@@ -160,7 +154,6 @@
     z-index: 102;
     background: url('../assets/zhuce.jpeg') no-repeat;
     background-size: 100% 100%;
-
     .xinxi {
       border-radius: 0.1rem;
       left: 50%;
@@ -175,13 +168,9 @@
       margin-top: -0.4rem;
       background-color: #FFFFFF;
       text-align: center;
-
-
-
       form {
         height: 1.24rem;
         position: relative;
-
         .item-a {
           font-size: 0.15rem;
           height: 0.4rem;
@@ -190,7 +179,6 @@
           align-items: center;
           width: 2.5rem;
           margin: 0 0.2rem;
-          
           .error_message{
             outline:solid 0.01rem  #FF1807;
           }
@@ -211,12 +199,10 @@
             height: 0.3rem;
             outline: none;
             border: none;
-
             &::placeholder {
               color: rgba(209, 209, 209, 1);
             }
           }
-
           &::after {
             content: "";
             position: absolute;
@@ -228,7 +214,6 @@
             background: rgba(219, 219, 219, 1);
           }
         }
-
         .item-b {
           width: 0.8rem;
           height: 0.2rem;
@@ -241,7 +226,6 @@
         }
       }
     }
-
     .button {
       position: absolute;
       bottom: -0.5rem;
@@ -255,9 +239,7 @@
       text-align: center;
       line-height: 0.35rem;
       color: #ffffff;
-      
     }
-
     .luyou {
       margin: 0 auto;
       width: 1.5rem;
@@ -265,7 +247,6 @@
       height: 0.5rem;
       align-items: center;
       background: #FFFFFF;
-
       .active {
         height: 0.35rem;
         display: inline-block;
@@ -278,7 +259,6 @@
         font-size: 0.15rem;
         color: rgba(243, 133, 138, 1);
         position: relative;
-
         &::after {
           content: "";
           position: absolute;
@@ -291,7 +271,6 @@
           background-color: rgba(243, 133, 138, 1);
         }
       }
-
       .noactive {
         height: 0.35rem;
         display: inline-block;
@@ -304,5 +283,4 @@
       }
     }
   }
-
 </style>

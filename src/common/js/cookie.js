@@ -13,11 +13,9 @@ export function removeToken() {
   return Cookies.remove('Token')
 }
 
-
 export function getUsername() {
   return Cookies.get('username')
 }
-
 
 export function setUsername(token) {
   return Cookies.set('username', token,{ expires: expiresTime })

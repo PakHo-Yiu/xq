@@ -15,17 +15,16 @@ Vue.use(VueLazyload, {
   loading: require('@/assets/default.png')
 })
 router.beforeEach((to, from, next) => {
-  // var user = localStorage.user ? JSON.parse(localStorage.user) : '';
+  // var user = localStorage.user ? JSON.parse(localStorage.user) : ''
   var user=store.state.user
   if(user.token){ 
     //存在token
-     
     if (store.state.user.websock == '') {
       store.dispatch('SET_WEBSOCKETS').then(() => {
-      });
-      next();
+      })
+      next()
     } else{
-      next();
+      next()
     }
   }
   else{
@@ -34,9 +33,7 @@ router.beforeEach((to, from, next) => {
     } else{
       next({ path: '/Login' })
     }
-   
   }
-  
 })
 
 new Vue({

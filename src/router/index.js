@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-
 Vue.use(Router)
-
 
 const Recommend = (resolve) => {
   import('components/recommend').then((module) => {
@@ -94,8 +92,6 @@ const bianji = (resolve) => {
     resolve(module)
   })
 }
-
-
 
 const Faxian = (resolve) => {
   import('components/faxian').then((module) => {

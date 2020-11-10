@@ -74,72 +74,57 @@ const user = {
       state.websock.onopen = function () {
         //连接建立之后执行send方法发送数据
         state.websock.send(JSON.stringify({
-            type:'first',
-            username:state.username
+          type:'first',
+          username:state.username
         }
         )); 
-    }
-    state.websock.onmessage = function (e) {
+      }
+      state.websock.onmessage = function (e) {
       //接收数据
-      create(e.data);
-    console.log(e.data)
-  }
-      //连接建立之后执行send方法发送数据
-      
-   state.websock.onerror = function (e) {
-
-    dispatch('SET_WEBSOCKETS');
-}
-state.websock.onclose = function (e) {
-
-  dispatch('SET_WEBSOCKETS');
-  
-}
+        create(e.data);
+        console.log(e.data)
+      }
+      //连接建立之后执行send方法发送数据  
+      state.websock.onerror = function (e) {
+        dispatch('SET_WEBSOCKETS');
+      }
+      state.websock.onclose = function (e) {
+        dispatch('SET_WEBSOCKETS');
+      }
     },
   },
-
   actions: {
     // 保存token
     LoginByUsername({ commit }, userInfo) {
-          commit('SET_TOKEN',userInfo)
-          setToken(userInfo)
-  
-
+      commit('SET_TOKEN',userInfo)
+      setToken(userInfo)
     },
     SET_WEBSOCKETS({ commit }) {
-       const wsuri = "ws://"+document.domain+":8282";
-       commit('SET_WEBSOCKET',new WebSocket(wsuri))
-       
- },
- SAVE_WEBSOCKETS({ commit }) {
-  commit('SAVE_WEBSOCKETS')
-},
-
-Newrmessage({ commit },chat) {
-  let values =savermessage(chat)
-  commit('SET_CHAT',values)
-  if(values){
-      basicOp.newtalllist(values).then(res => {
-             }).catch(res => {
-       })
-   }
-},
-
-Newmessage({ commit },list) {
- 
-  createNMessage(list)
-},
-Allmessage({ commit },list) {
- 
-  initMessage(list)
-},
-
+      const wsuri = "ws://"+document.domain+":8282";
+      commit('SET_WEBSOCKET',new WebSocket(wsuri)) 
+    },
+    SAVE_WEBSOCKETS({ commit }) {
+      commit('SAVE_WEBSOCKETS')
+    },
+    Newrmessage({ commit },chat) {
+      let values =savermessage(chat)
+      commit('SET_CHAT',values)
+      if(values){
+          basicOp.newtalllist(values).then(res => {
+          }).catch(res => {
+          })
+      }
+    },
+    Newmessage({ commit },list) {
+      createNMessage(list)
+    },
+    Allmessage({ commit },list) {
+      initMessage(list)
+    },
     // 保存用户信息
     GetUserInfo({ commit, state }) {
-          commit('SET_KEY', 1)
-          commit('SET_XINXI', data.xinxi)
-        
-      
+      commit('SET_KEY', 1)
+      commit('SET_XINXI', data.xinxi)
     },
     // 前端 登出
     LogOut({ commit }) {
@@ -153,5 +138,4 @@ Allmessage({ commit },list) {
     },
   }
 }
-
 export default user

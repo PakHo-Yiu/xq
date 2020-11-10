@@ -1,37 +1,35 @@
 <template>
-    <div  class="badge" v-show="kaiguan" >
-      <div class="badge-content">  
-      </div>
+  <div  class="badge" v-show="kaiguan" >
+    <div class="badge-content">  
     </div>
+  </div>
 </template>
 
 <script>
 import store from "@/store";
 export default {
-    data() {
-        return {
-            kaiguan:false,
-        }
-    },
-   computed:{
+  data() {
+    return {
+      kaiguan:false,
+    }
+  },
+  computed:{
     xinxiy() {
       return store.state.user.konjian[store.state.user.username];
     }
   },
-       methods:{
-           change(){
-                this.kaiguan=false;
-           }
-       },
-       watch: {
-        xinxiy: {
-            handler(newValue,oldValue){  //当词条改变时执行事件
-             this.kaiguan=true;
-            
-            }
-        }
-        
-       }
+  methods: {
+    change() {
+      this.kaiguan=false;
+    }
+  },
+  watch: {
+    xinxiy: {
+      handler(newValue,oldValue){  //当词条改变时执行事件
+        this.kaiguan=true;
+      }
+    }  
+  }
 }
 </script>
 

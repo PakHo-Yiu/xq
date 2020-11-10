@@ -21,7 +21,6 @@ export default class Comment {
     if(!store.state.user.konjian[store.state.user.username_zy]){
       Vue.set(store.state.user.konjian,store.state.user.username_zy, []);
     }
-  
     store.state.user.konjian[store.state.user.username_zy].push(
       new Comment({          
       type : Data.type,
@@ -36,7 +35,6 @@ export default class Comment {
       s_back : Data.s_back,
       s_content : Data.s_content,
       nickNames : Data.nickNames
-
      }))
      return  new Comment({          
       type : Data.type,
@@ -91,7 +89,6 @@ export default class Comment {
       s_back : Data.s_back,
       s_content : Data.s_content,
       nickNames : Data.nickNames
-      
      }))
      if(Data.username_zy!=Data.recontact){
       store.state.user.konjian[Data.recontact].push(
@@ -108,14 +105,10 @@ export default class Comment {
         s_back : Data.s_back,
         s_content : Data.s_content,
         nickNames : Data.nickNames
-        
        }))
      }
-     
-     
 
   }
-
 
   export function createRCommentF(Data) {
     if(!store.state.user.konjian[Data.username_zy]){
@@ -135,6 +128,5 @@ export default class Comment {
       s_back : Data.s_back,
       s_content : Data.s_content,
       nickNames : Data.nickNames
-      
      }))
   }

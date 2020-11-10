@@ -19,8 +19,9 @@ export default {
       type: String
     }
   }
-};
+}
 </script>
+
 <style lang="scss" scoped>
 .el-card {
   border-radius: 4px;

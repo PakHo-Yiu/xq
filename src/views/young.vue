@@ -1,19 +1,15 @@
 <template>
   <div>
-     <null-result v-if="!Attention_list" :content="this.content"  ></null-result>
+    <null-result v-if="!Attention_list" :content="this.content"  ></null-result>
     <div class="content-middle">
-
       <div
         class="message-item"
         v-for="(item, index) in Attention_list"
-
-       @click="selectresult(item.username)"
-       :key="index"
-      
+        @click="selectresult(item.username)"
+        :key="index"
         @touchstart.capture="gtouchstart($event)"
         @touchend.capture="gtouchend($event)"
         data-type="0"
-
       >
         <div class="avatar-img">
           <img :src="item.img" alt="用户头像" />
@@ -27,62 +23,60 @@
     </div>
   </div>
 </template>
-    
-    <script>
+
+<script>
 import { basicOp } from "@/api/index.js";
 import store from "@/store";
 import { deleteattention } from "@/common/js/storage.js";
 import {deletes} from '@/common/js/mixin';
 import NullResult from '@/components/null_result'
 export default {
-   mixins: [deletes],
+  mixins: [deletes],
   data() {
     return {
       attention_lish: [],
       content:"快去寻找Ta吧"
-    };
+    }
   },
   computed: {
     Attention_list() {
       return store.state.user.attention_list == ""
         ? this.attention_list
-        : store.state.user.attention_list;
+        : store.state.user.attention_list
     }
   },
   methods: {
     selectresult(username) {
-       if (this.checkSlide()) {
-          this.restSlide();
-        } else {
-           store.commit("SET_USERNAMEZY", username);
-      this.$router
-        .push({
-          path: `/zhuye`
-        })
-        .catch(err => {});
-        }
-    },
-        deletes(item) {
-       
+      if (this.checkSlide()) {
         this.restSlide()
-        deleteattention(item);
-       
-      },
+      } else {
+        store.commit("SET_USERNAMEZY", username)
+        this.$router
+          .push({
+            path: `/zhuye`
+          })
+          .catch(err => {})
+      }
+    },
+    deletes(item) {
+      this.restSlide()
+      deleteattention(item); 
+    },
   },
   components:{
     NullResult
   }
-};
+}
 </script>
     
-    <style scoped  rel="stylesheet/scss" lang="scss">
+<style scoped  rel="stylesheet/scss" lang="scss">
 .content-middle {
   font-size: 0.17rem;
   margin-left: 0;
   margin-right: 0;
- overflow: hidden;
+  overflow: hidden;
   background: rgba(255, 255, 255, 1);
-    margin-bottom: 0.6rem;
+  margin-bottom: 0.6rem;
   .message-item {
     height: 0.75rem;
     border-radius: 0.04rem;
@@ -103,7 +97,6 @@ export default {
       height: 0.01rem;
       background: rgba(239, 239, 239, 1);
     }
-
     .avatar-img {
       display: inline-block;
       width: 0.54rem;
